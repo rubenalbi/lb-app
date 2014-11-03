@@ -1,0 +1,18 @@
+//
+//  StopViewController.h
+//  BusLondon
+//
+//  Created by Rubén Albiach on 30/10/14.
+//  Copyright (c) 2014 Rubén Albiach. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "Constants.h"
+#import "Bus.h"
+#import "BusViewCell.h"
+
+@interface StopViewController : UITableViewController
+
+@property NSString *stopID;
+
+@end
