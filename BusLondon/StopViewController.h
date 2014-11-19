@@ -14,5 +14,6 @@
 @interface StopViewController : UITableViewController
 
 @property NSString *stopID;
+- (IBAction)refreshEstimatedTime:(id)sender;
 
 @end

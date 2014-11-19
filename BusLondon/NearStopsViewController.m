@@ -15,6 +15,8 @@
 @implementation NearStopsViewController {
     NSMutableArray *stops;
     BOOL firstLoad;
+    Pin *selectedPin;
+    NSThread* myThread;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -33,6 +35,12 @@
     firstLoad = false;
     
     [self loadLocation];
+    
+    self.mapView.delegate = self;
+    
+    MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+    self.navigationItem.rightBarButtonItem = buttonItem;
+    
     
     // UIRefreshControl to update the list
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -86,7 +94,7 @@
         stopCell.TowardsLabel.text = [stop Towards];
         stopCell.BusesLabel.text = [stop BusNumbers];
         
-        stopCell.DistanceLabel.text = [NSString stringWithFormat:@"%.0fm",[stop distance]];
+        stopCell.DistanceLabel.text = [NSString stringWithFormat:@"%.0f min",([stop distance]/1.4)/60];
         
         return stopCell;
     }
@@ -151,7 +159,7 @@
     
     NSLog(@"LoadBusStops");
     
-    NSMutableArray *stopsJSON = [self parseJSONtoArrayFromURL:[self getURLStopsByLatitude:userLocation.coordinate.latitude longitude:userLocation.coordinate.longitude]];
+    NSMutableArray *stopsJSON = [self parseJSONtoArrayFromURL:[self getURLStopsByLatitude:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude]];
     
     if (stops != nil) {
         [stops removeAllObjects];
@@ -162,7 +170,7 @@
     Stop *stop;
     CLLocation *stopLocation;
     for (NSArray *stopArray in stopsJSON) {
-        if ([stopArray count] >= 8) {
+        if ([stopArray count] >= 9) {
             stop = [[Stop alloc]init];
             [stop setStopPointName:stopArray[1]];
             if ([stop StopPointName] == (id)[NSNull null]) [stop setStopPointName:nil];
@@ -172,15 +180,16 @@
             if ([stop StopPointType] == (id)[NSNull null]) [stop setStopPointType:nil];
             [stop setTowards:stopArray[4]];
             if ([stop Towards] == (id)[NSNull null]) [stop setTowards:nil];
-            [stop setStopPointIndicator:stopArray[5]];
+            [stop setBearing:stopArray[5]];
+            if ([stop Bearing] == (id)[NSNull null]) [stop setBearing:nil];
+            [stop setStopPointIndicator:stopArray[6]];
             if ([stop StopPointIndicator] == (id)[NSNull null]) [stop setStopPointIndicator:nil];
-            
-            [stop setLatitude:stopArray[6]];
+            [stop setLatitude:stopArray[7]];
             if ([stop Latitude] == (id)[NSNull null]) [stop setLatitude:nil];
-            [stop setLongitude:stopArray[7]];
+            [stop setLongitude:stopArray[8]];
             if ([stop Longitude] == (id)[NSNull null]) [stop setLongitude:nil];
             
-            stopLocation = [[CLLocation alloc] initWithLatitude:[stopArray[6] doubleValue] longitude:[stopArray[7] doubleValue]];
+            stopLocation = [[CLLocation alloc] initWithLatitude:[stopArray[7] doubleValue] longitude:[stopArray[8] doubleValue]];
             
             [stop setStopLocation:stopLocation];
             
@@ -192,6 +201,17 @@
                                                   || [[stop StopPointType] isEqualToString:@"STBC"] || [[stop StopPointType] isEqualToString:@"STZZ"]
                                                   || [[stop StopPointType] isEqualToString:@"STBN"] || [[stop StopPointType] isEqualToString:@"STBS"]
                                                   || [[stop StopPointType] isEqualToString:@"STSS"] || [[stop StopPointType] isEqualToString:@"STVA"])){
+                //  Instanciamos el objeto Pin y se añade los datos a mostrar.
+                Pin *pin = [[Pin alloc] init];
+                [pin setTitle:[NSString stringWithFormat:@"%@ - %@",[stop StopPointIndicator],[stop StopPointName]]];
+                [pin setSubtitle:[stop BusNumbers]];
+                [pin setStopPointIndicator:[stop StopPointIndicator]];
+                [pin setBearing:[stop Bearing]];
+                [pin setStopID:[stop StopID]];
+                
+                [pin setCoordinate:CLLocationCoordinate2DMake([[stop Latitude] doubleValue], [[stop Longitude] doubleValue])];
+                [self.mapView addAnnotation:pin];
+                
                 [stops addObject:stop];
             }
         }
@@ -199,6 +219,7 @@
     
     stops = [self insertionSort:stops];
     [self.tableView reloadData];
+    
 }
 
 - (NSMutableArray*)parseJSONtoArrayFromURL:(NSString *)url{
@@ -261,7 +282,7 @@
                            RATIO_DISTANCE,
                            URL_FINAL_STOPS];
     
-//    NSLog(@"%@", URLString);
+    NSLog(@"%@", URLString);
     
     return URLString;
 }
@@ -322,7 +343,18 @@
     if (!firstLoad) {
         [self loadBusStops];
         firstLoad = true;
+        
+        MKCoordinateRegion mapRegion;
+        mapRegion.center.latitude = userLocation.coordinate.latitude;
+        mapRegion.center.longitude = userLocation.coordinate.longitude;
+        mapRegion.span.latitudeDelta = 0.01;
+        mapRegion.span.longitudeDelta = 0.01;
+        [self.mapView setRegion:mapRegion animated: YES];
+        
+        mapLocation = userLocation;
     }
+    
+    
 }
 
 -(NSMutableArray *)insertionSort:(NSMutableArray *)unsortedDataArray
@@ -359,14 +391,99 @@
     [refreshControl endRefreshing];
 }
 
+-(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    
+    NSLog(@"update map");
+    
+    
+    
+//    if ([myThread isFinished] || myThread == nil) {
+//        [self.mapView removeAnnotations:[self.mapView annotations]];
+//        
+//        mapLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
+//        
+//        myThread = [[NSThread alloc] initWithTarget:self
+//                                           selector:@selector(loadBusStops)
+//                                             object:nil];
+//        [myThread start];
+//    }
+    
+    [self.mapView removeAnnotations:[self.mapView annotations]];
+    
+    mapLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
+    
+        [self loadBusStops];
+}
+
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+//    [self.mapView setCenterCoordinate:userLocation.coordinate animated:YES];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
+    static NSString *identifier = @"Pin";
+    
+    Pin *pin = (Pin*)annotation;
+    
+    if ([annotation isKindOfClass:[Pin class]]) {
+        
+        MKAnnotationView *annotationView = (MKAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        
+        
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+        annotationView.enabled = YES;
+        annotationView.canShowCallout = YES;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,0,35,22)];
+        [label setText:[pin stopPointIndicator]];
+        [label setFont:[UIFont fontWithName:@"Helvetica Neue" size:9.0]];
+        [label setTextAlignment:NSTextAlignmentCenter];
+        [label setHighlighted:YES];
+        [annotationView addSubview:label];
+        annotationView.image = [UIImage imageNamed:@"pinStopMap.png"];//here we use a nice image instead of the default pins
+        annotationView.centerOffset = CGPointMake(0.0, -17.0);
+        
+        UIButton *detailBtn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [detailBtn addTarget:self action:@selector(calloutButton) forControlEvents:UIControlEventTouchUpInside];
+        annotationView.rightCalloutAccessoryView = detailBtn;
+        
+        // Image and two labels
+        UIView *leftCAV = [[UIView alloc] initWithFrame:CGRectMake(0,0,23,23)];
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrowRed.png"]];
+        
+        // Image rotation to point bus direction
+        image.transform = CGAffineTransformMakeRotation(([[pin bearing] intValue]-270) * M_PI/180);
+        [leftCAV addSubview : image];
+        annotationView.leftCalloutAccessoryView = leftCAV;
+        
+        annotationView.canShowCallout = YES;
+        
+        return annotationView;
+    }
+    
+    return nil;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
+    id <MKAnnotation> annotation = [view annotation];
+    selectedPin = (Pin*)annotation;
+}
+
+- (void)calloutButton{
+    [self performSegueWithIdentifier:@"showStop" sender:selectedPin];
+}
+
 //  Se pasa el objeto Centro que se ha seleccionado de la tabla para mostrar sus detalles
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showStop"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        Stop *stop = stops[indexPath.row];
-        [[segue destinationViewController] setStopID:stop.StopID];
-        [[segue destinationViewController] setTitle:stop.StopPointName];
+        if ([sender class] == [Pin class]) {
+            [[segue destinationViewController] setStopID:[selectedPin stopID]];
+            [[segue destinationViewController] setTitle:[selectedPin title]];
+        } else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            Stop *stop = stops[indexPath.row];
+            [[segue destinationViewController] setStopID:stop.StopID];
+            [[segue destinationViewController] setTitle:stop.StopPointName];
+        }
     }
 }
 

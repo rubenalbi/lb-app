@@ -14,12 +14,18 @@
 
 @implementation StopViewController{
     NSMutableArray *buses;
+    NSTimer* timer;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self loadBuses];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:10
+                                                      target:self selector:@selector(loadBuses)
+                                                    userInfo:nil repeats:YES];
+    [timer fire];
     
     // UIRefreshControl to update the list
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -28,10 +34,15 @@
     self.refreshControl = refresh;
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [timer invalidate];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - Table view data source
 
@@ -64,7 +75,7 @@
         if ([bus EstimatedTime] < 1) {
             busCell.estimatedTime.text = @"due" ;
         } else {
-            busCell.estimatedTime.text = [NSString stringWithFormat:@"%.0f",[bus EstimatedTime]] ;
+            busCell.estimatedTime.text = [NSString stringWithFormat:@"%.0f min",[bus EstimatedTime]] ;
         }
         
         return busCell;
@@ -74,6 +85,13 @@
     cell.textLabel.text = @"Loading data...";
     
     return cell;
+}
+
+- (void)updateEstimatedTime{
+    while (true) {
+        [NSThread sleepForTimeInterval:20.0];
+        [self loadBuses];
+    }
 }
 
 - (void)loadBuses{
@@ -104,8 +122,6 @@
             if ([bus RegistrationNumber] == (id)[NSNull null]) [bus setRegistrationNumber:nil];
             // Getting UTC time in seconds and estimated minutes
             [bus setEstimatedTime:(([busArray[6] doubleValue]/1000.0)-[[NSDate date] timeIntervalSince1970])/60.0];
-//            if ([bus EstimatedTime] == (id)[NSNull null]) [bus setEstimatedTime:nil];
-            [bus setExpireTime:busArray[7]];
             
             [buses addObject:bus];
         }
@@ -113,6 +129,7 @@
     
     buses = [self insertionSort:buses];
     [self.tableView reloadData];
+    
 }
 
 - (NSMutableArray*)parseJSONtoArrayFromURL:(NSString *)url{
@@ -190,4 +207,7 @@
 }
 */
 
+- (IBAction)refreshEstimatedTime:(id)sender {
+    [self loadBuses];
+}
 @end

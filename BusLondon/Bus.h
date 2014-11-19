@@ -16,6 +16,5 @@
 @property NSString *VehicleID;
 @property NSString *RegistrationNumber;
 @property double EstimatedTime;
-@property NSString *ExpireTime;
 
 @end

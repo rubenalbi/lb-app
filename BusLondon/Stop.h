@@ -15,6 +15,7 @@
 @property NSString *StopID;
 @property NSString *StopPointType;
 @property NSString *Towards;
+@property NSString *Bearing;
 @property NSString *StopPointIndicator;
 @property CLLocation *StopLocation;
 @property NSString *Latitude;

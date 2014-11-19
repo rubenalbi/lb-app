@@ -14,9 +14,11 @@
 
 #define URL_TFL_API                         @"http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1"
 
-#define RATIO_DISTANCE                      @"250"
-#define URL_FINAL_STOPS                     @"&StopPointState=0&ReturnList=StopID,StopPointName,Towards,StopPointIndicator,StopPointType,Latitude,Longitude"
+#define RATIO_DISTANCE                      @"500"
+#define URL_FINAL_STOPS                     @"&StopPointState=0&ReturnList=StopID,StopPointName,Towards,Bearing,StopPointIndicator,StopPointType,Latitude,Longitude"
 
 #define URL_BUSES_STOP_ID                   @"?Stopid="
 #define URL_BUSES_RETURN_LIST_JUST_NUMBERS  @"&ReturnList=LineName"
 #define URL_BUSES_RETURN_LIST               @"&ReturnList=Stoppointname,VehicleID,RegistrationNumber,LineName,DestinationName,EstimatedTime,ExpireTime"
+
+#define METERS_PER_MILE 1609.344
