@@ -17,6 +17,7 @@
     BOOL firstLoad;
     Pin *selectedPin;
     NSThread* myThread;
+    double timeStart;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -34,12 +35,21 @@
     
     firstLoad = false;
     
+    
     [self loadLocation];
+    
     
     self.mapView.delegate = self;
     
-    MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
-    self.navigationItem.rightBarButtonItem = buttonItem;
+    
+    // Location map button
+    UIButton *myLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    myLocationButton.frame = CGRectMake(self.mapView.frame.size.width-40, self.mapView.frame.size.height-40, 30, 30);
+    [myLocationButton setImage:[UIImage imageNamed:@"locationArrow.png"] forState:UIControlStateNormal];
+    [myLocationButton addTarget:self action:@selector(locateUser) forControlEvents:UIControlEventTouchUpInside];
+    
+    //add the button to the view
+    [self.mapView addSubview:myLocationButton];
     
     
     // UIRefreshControl to update the list
@@ -105,61 +115,13 @@
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (void)loadBusStops{
-    
+    timeStart = [[NSDate date] timeIntervalSince1970];
     NSLog(@"LoadBusStops");
     
     NSMutableArray *stopsJSON = [self parseJSONtoArrayFromURL:[self getURLStopsByLatitude:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude]];
+    
+    NSLog(@"ParseJSON - %f", [[NSDate date] timeIntervalSince1970] - timeStart);
     
     if (stops != nil) {
         [stops removeAllObjects];
@@ -193,7 +155,7 @@
             
             [stop setStopLocation:stopLocation];
             
-            [stop setBusNumbers:[self getBusNumbersByStopID:[stop StopID]]];
+//            [stop setBusNumbers:[self getBusNumbersByStopID:[stop StopID]]];
             
             [stop setDistance:[userLocation distanceFromLocation:stopLocation]];
             
@@ -201,7 +163,7 @@
                                                   || [[stop StopPointType] isEqualToString:@"STBC"] || [[stop StopPointType] isEqualToString:@"STZZ"]
                                                   || [[stop StopPointType] isEqualToString:@"STBN"] || [[stop StopPointType] isEqualToString:@"STBS"]
                                                   || [[stop StopPointType] isEqualToString:@"STSS"] || [[stop StopPointType] isEqualToString:@"STVA"])){
-                //  Instanciamos el objeto Pin y se añade los datos a mostrar.
+//                //  Instanciamos el objeto Pin y se añade los datos a mostrar.
                 Pin *pin = [[Pin alloc] init];
                 [pin setTitle:[NSString stringWithFormat:@"%@ - %@",[stop StopPointIndicator],[stop StopPointName]]];
                 [pin setSubtitle:[stop BusNumbers]];
@@ -219,7 +181,7 @@
     
     stops = [self insertionSort:stops];
     [self.tableView reloadData];
-    
+    NSLog(@"LoadLocation - %f", [[NSDate date] timeIntervalSince1970] - timeStart);
 }
 
 - (NSMutableArray*)parseJSONtoArrayFromURL:(NSString *)url{
@@ -319,42 +281,35 @@
     NSLog(@"Error: %@",error.description);
 }
 
-//-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-//{
-//    NSLog(@"locationManager");
-//    CLLocation *crnLoc = [locations lastObject];
-//    
-//    userLocation = crnLoc;
-////    latitude = [NSString stringWithFormat:@"%.8f",crnLoc.coordinate.latitude];
-////    longitude = [NSString stringWithFormat:@"%.8f",crnLoc.coordinate.longitude];
-//    
-//    [locationManager stopUpdatingLocation];
-//    [self loadBusStops];
-//    
-//}
-
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     
     NSLog(@"Load new location");
     userLocation = newLocation;
     
-//    [locationManager stopUpdatingLocation];
-    
     if (!firstLoad) {
+       
+//        NSThread *threadLoadStops = [[NSThread alloc] initWithTarget:self selector:@selector(loadBusStops) object:nil];
+//        [threadLoadStops start];
+        
         [self loadBusStops];
+        
         firstLoad = true;
         
-        MKCoordinateRegion mapRegion;
-        mapRegion.center.latitude = userLocation.coordinate.latitude;
-        mapRegion.center.longitude = userLocation.coordinate.longitude;
-        mapRegion.span.latitudeDelta = 0.01;
-        mapRegion.span.longitudeDelta = 0.01;
-        [self.mapView setRegion:mapRegion animated: YES];
+        [self locateUser];
         
         mapLocation = userLocation;
     }
     
     
+}
+
+- (void)locateUser{
+    MKCoordinateRegion mapRegion;
+    mapRegion.center.latitude = userLocation.coordinate.latitude;
+    mapRegion.center.longitude = userLocation.coordinate.longitude;
+    mapRegion.span.latitudeDelta = 0.01;
+    mapRegion.span.longitudeDelta = 0.01;
+    [self.mapView setRegion:mapRegion animated: YES];
 }
 
 -(NSMutableArray *)insertionSort:(NSMutableArray *)unsortedDataArray
@@ -415,9 +370,6 @@
         [self loadBusStops];
 }
 
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-//    [self.mapView setCenterCoordinate:userLocation.coordinate animated:YES];
-}
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
     static NSString *identifier = @"Pin";

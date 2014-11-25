@@ -33,6 +33,7 @@
 		87CB0B801A162E9100A09427 /* pinStopMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87CB0B7F1A162E9100A09427 /* pinStopMap@2x.png */; };
 		87CB0B821A16399D00A09427 /* arrowRed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87CB0B811A16399D00A09427 /* arrowRed@2x.png */; };
 		87CB0B851A1687E800A09427 /* Pin.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CB0B841A1687E800A09427 /* Pin.m */; };
+		87CF03FD1A1CD4FD00F5F883 /* locationArrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 87CF03FC1A1CD4FD00F5F883 /* locationArrow@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		87CB0B811A16399D00A09427 /* arrowRed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowRed@2x.png"; sourceTree = "<group>"; };
 		87CB0B831A1687E800A09427 /* Pin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pin.h; sourceTree = "<group>"; };
 		87CB0B841A1687E800A09427 /* Pin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pin.m; sourceTree = "<group>"; };
+		87CF03FC1A1CD4FD00F5F883 /* locationArrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locationArrow@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 		8790B26719C1C4BD00BC1D63 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				87CF03FC1A1CD4FD00F5F883 /* locationArrow@3x.png */,
 				8790B26819C1C68B00BC1D63 /* redStopPointIndicator@2x.png */,
 				87CB0B811A16399D00A09427 /* arrowRed@2x.png */,
 				87CB0B7F1A162E9100A09427 /* pinStopMap@2x.png */,
@@ -321,6 +324,7 @@
 				8790B26919C1C68B00BC1D63 /* redStopPointIndicator@2x.png in Resources */,
 				87CB0B821A16399D00A09427 /* arrowRed@2x.png in Resources */,
 				870ABF5A19BC8037001B7D2E /* InfoPlist.strings in Resources */,
+				87CF03FD1A1CD4FD00F5F883 /* locationArrow@3x.png in Resources */,
 				870ABF6319BC8037001B7D2E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
