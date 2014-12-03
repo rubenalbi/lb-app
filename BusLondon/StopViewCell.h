@@ -15,5 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *TowardsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *BusesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
+@property (weak, nonatomic) IBOutlet UIButton *addFavouriteButton;
+
+- (IBAction)addFavouriteButton:(id)sender;
 
 @end

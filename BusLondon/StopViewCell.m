@@ -31,4 +31,7 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)addFavouriteButton:(id)sender {
+    
+}
 @end

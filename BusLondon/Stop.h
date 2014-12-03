@@ -1,26 +1,24 @@
 //
-//  BusStop.h
+//  Stop.h
 //  BusLondon
 //
-//  Created by Rubén Albiach on 07/09/14.
+//  Created by Rubén Albiach on 29/11/14.
 //  Copyright (c) 2014 Rubén Albiach. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
 
 @interface Stop : NSObject
 
-@property NSString *StopPointName;
-@property NSString *StopID;
-@property NSString *StopPointType;
-@property NSString *Towards;
-@property NSString *Bearing;
-@property NSString *StopPointIndicator;
-@property CLLocation *StopLocation;
-@property NSString *Latitude;
-@property NSString *Longitude;
-@property NSString *BusNumbers;
-@property double distance;
+@property NSString *stopPointName;
+@property NSString *stopID;
+@property NSString *stopPointType;
+@property NSString *towards;
+@property NSString *bearing;
+@property NSString *stopPointIndicator;
+@property NSString *latitude;
+@property NSString *longitude;
+@property NSString *busNumbers;
+@property NSNumber *distance;
 
 @end

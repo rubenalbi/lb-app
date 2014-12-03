@@ -14,11 +14,14 @@
 
 @implementation NearStopsViewController {
     NSMutableArray *stops;
+    NSMutableArray *myStops;
     BOOL firstLoad;
     Pin *selectedPin;
     NSThread* myThread;
     double timeStart;
 }
+
+@synthesize managedObjectContext;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,21 +38,23 @@
     
     firstLoad = false;
     
-    
     [self loadLocation];
-    
+
     
     self.mapView.delegate = self;
     
     
     // Location map button
     UIButton *myLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    myLocationButton.frame = CGRectMake(self.mapView.frame.size.width-40, self.mapView.frame.size.height-40, 30, 30);
+    myLocationButton.frame = CGRectMake(15, 15, 30, 30);
     [myLocationButton setImage:[UIImage imageNamed:@"locationArrow.png"] forState:UIControlStateNormal];
     [myLocationButton addTarget:self action:@selector(locateUser) forControlEvents:UIControlEventTouchUpInside];
     
     //add the button to the view
     [self.mapView addSubview:myLocationButton];
+    
+//    [self.mapView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[myLocationButton(==30)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(myLocationButton)]];
+//    [self.mapView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[myLocationButton(==30)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(myLocationButton)]];
     
     
     // UIRefreshControl to update the list
@@ -63,6 +68,16 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+    // CORE DATA
+    
+    id delegate = [[UIApplication sharedApplication] delegate];
+    self.managedObjectContext = [delegate managedObjectContext];
+
+    [self loadMyStops];
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,12 +114,19 @@
         stopCell = [tableView dequeueReusableCellWithIdentifier:@"StopCell" forIndexPath:indexPath];
         Stop *stop = stops[indexPath.row];
         
-        stopCell.StopPointIndicatorLabel.text = [stop StopPointIndicator];
-        stopCell.StopNameLabel.text = [stop StopPointName];
-        stopCell.TowardsLabel.text = [stop Towards];
-        stopCell.BusesLabel.text = [stop BusNumbers];
+        stopCell.StopPointIndicatorLabel.text = [stop stopPointIndicator];
+        stopCell.StopNameLabel.text = [stop stopPointName];
+        stopCell.TowardsLabel.text = [stop towards];
+        stopCell.BusesLabel.text = [stop busNumbers];
+        stopCell.addFavouriteButton.tag = indexPath.row;
         
-        stopCell.DistanceLabel.text = [NSString stringWithFormat:@"%.0f min",([stop distance]/1.4)/60];
+        if ([self checkDuplicates:stop]) {
+            [stopCell.addFavouriteButton setSelected:YES];
+        }else{
+            [stopCell.addFavouriteButton setSelected:NO];
+        }
+        
+        stopCell.DistanceLabel.text = [NSString stringWithFormat:@"%.0f min",([[stop distance] doubleValue]/1.4)/60];
         
         return stopCell;
     }
@@ -115,9 +137,90 @@
     return cell;
 }
 
+- (IBAction)addFavourites:(id)sender{
+    StopViewCell *cell = (StopViewCell *)[(UITableView *)self.view cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[sender tag] inSection:0]];
+    
+    if ([self checkDuplicates:stops[[sender tag]]]) {
+        
+        [self deleteStop:stops[[sender tag]]];
+        
+        [cell.addFavouriteButton setSelected:NO];
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Stop deleted"
+                              message: @"The stop has been deleted from your stops."
+                              delegate:self
+                              cancelButtonTitle:@"Aceptar"
+                              otherButtonTitles:nil];
+        [alert show];
+    } else{
+        [myStops addObject:stops[[sender tag]]];
+        [self saveStop:stops[[sender tag]]];
+        
+        [cell.addFavouriteButton setSelected:YES];
+    }
+    
+}
+
+- (void)saveStop:(Stop *)stop{
+    StopDAO *stopDAO = [NSEntityDescription
+                        insertNewObjectForEntityForName:@"Stop"
+                        inManagedObjectContext:[self managedObjectContext]];
+    stopDAO.stopPointName = stop.stopPointName;
+    stopDAO.stopID = stop.stopID;
+    stopDAO.stopPointType = stop.stopPointType;
+    stopDAO.towards = stop.towards;
+    stopDAO.bearing = [NSString stringWithFormat:@"%@", stop.bearing];
+    stopDAO.stopPointIndicator = stop.stopPointIndicator;
+    stopDAO.latitude = [NSString stringWithFormat:@"%@", stop.latitude];
+    stopDAO.longitude = [NSString stringWithFormat:@"%@", stop.longitude];
+    stopDAO.busNumbers = stop.busNumbers;
+    stopDAO.distance = stop.distance;
+    
+    NSError *error;
+    if (![[self managedObjectContext] save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+}
+
+- (void)deleteStop:(Stop *)stop{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription
+                                   entityForName:@"Stop" inManagedObjectContext:managedObjectContext];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"stopID == %@", stop.stopID];
+    NSError *error;
+    NSMutableArray *myStopsToDelete = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    
+    for (NSManagedObject *managedObject in myStopsToDelete) {
+        [managedObjectContext deleteObject:managedObject];
+    }
+    
+    if (![managedObjectContext save:&error])
+    {
+        NSLog(@"Error deleting stop, %@", [error userInfo]);
+    }
+    
+    [self loadMyStops];
+}
+
+- (BOOL)checkDuplicates:(Stop *)stop {
+    if ([[myStops valueForKey:@"stopID"] containsObject:stop.stopID]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)loadMyStops{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Stop" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    myStops = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
+}
+
 - (void)loadBusStops{
     timeStart = [[NSDate date] timeIntervalSince1970];
-    NSLog(@"LoadBusStops");
     
     NSMutableArray *stopsJSON = [self parseJSONtoArrayFromURL:[self getURLStopsByLatitude:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude]];
     
@@ -130,48 +233,41 @@
     }
     
     Stop *stop;
-    CLLocation *stopLocation;
     for (NSArray *stopArray in stopsJSON) {
         if ([stopArray count] >= 9) {
             stop = [[Stop alloc]init];
             [stop setStopPointName:stopArray[1]];
-            if ([stop StopPointName] == (id)[NSNull null]) [stop setStopPointName:nil];
+            if ([stop stopPointName] == (id)[NSNull null]) [stop setStopPointName:nil];
             [stop setStopID:stopArray[2]];
-            if ([stop StopID] == (id)[NSNull null]) [stop setStopID:nil];
+            if ([stop stopID] == (id)[NSNull null]) [stop setStopID:nil];
             [stop setStopPointType:stopArray[3]];
-            if ([stop StopPointType] == (id)[NSNull null]) [stop setStopPointType:nil];
+            if ([stop stopPointType] == (id)[NSNull null]) [stop setStopPointType:nil];
             [stop setTowards:stopArray[4]];
-            if ([stop Towards] == (id)[NSNull null]) [stop setTowards:nil];
+            if ([stop towards] == (id)[NSNull null]) [stop setTowards:nil];
             [stop setBearing:stopArray[5]];
-            if ([stop Bearing] == (id)[NSNull null]) [stop setBearing:nil];
+            if ([stop bearing] == (id)[NSNull null]) [stop setBearing:nil];
             [stop setStopPointIndicator:stopArray[6]];
-            if ([stop StopPointIndicator] == (id)[NSNull null]) [stop setStopPointIndicator:nil];
+            if ([stop stopPointIndicator] == (id)[NSNull null]) [stop setStopPointIndicator:nil];
             [stop setLatitude:stopArray[7]];
-            if ([stop Latitude] == (id)[NSNull null]) [stop setLatitude:nil];
+            if ([stop latitude] == (id)[NSNull null]) [stop setLatitude:nil];
             [stop setLongitude:stopArray[8]];
-            if ([stop Longitude] == (id)[NSNull null]) [stop setLongitude:nil];
+            if ([stop longitude] == (id)[NSNull null]) [stop setLongitude:nil];
             
-            stopLocation = [[CLLocation alloc] initWithLatitude:[stopArray[7] doubleValue] longitude:[stopArray[8] doubleValue]];
+            [stop setDistance:[NSNumber numberWithDouble:[self distanceFromUserLocation:stopArray[7] long:stopArray[8]]]];
             
-            [stop setStopLocation:stopLocation];
-            
-//            [stop setBusNumbers:[self getBusNumbersByStopID:[stop StopID]]];
-            
-            [stop setDistance:[userLocation distanceFromLocation:stopLocation]];
-            
-            if (([stop StopPointType] != nil) && ([[stop StopPointType] isEqualToString:@"STBR"]
-                                                  || [[stop StopPointType] isEqualToString:@"STBC"] || [[stop StopPointType] isEqualToString:@"STZZ"]
-                                                  || [[stop StopPointType] isEqualToString:@"STBN"] || [[stop StopPointType] isEqualToString:@"STBS"]
-                                                  || [[stop StopPointType] isEqualToString:@"STSS"] || [[stop StopPointType] isEqualToString:@"STVA"])){
+            if (([stop stopPointType] != nil) && ([[stop stopPointType] isEqualToString:@"STBR"]
+                                                  || [[stop stopPointType] isEqualToString:@"STBC"] || [[stop stopPointType] isEqualToString:@"STZZ"]
+                                                  || [[stop stopPointType] isEqualToString:@"STBN"] || [[stop stopPointType] isEqualToString:@"STBS"]
+                                                  || [[stop stopPointType] isEqualToString:@"STSS"] || [[stop stopPointType] isEqualToString:@"STVA"])){
 //                //  Instanciamos el objeto Pin y se añade los datos a mostrar.
                 Pin *pin = [[Pin alloc] init];
-                [pin setTitle:[NSString stringWithFormat:@"%@ - %@",[stop StopPointIndicator],[stop StopPointName]]];
-                [pin setSubtitle:[stop BusNumbers]];
-                [pin setStopPointIndicator:[stop StopPointIndicator]];
-                [pin setBearing:[stop Bearing]];
-                [pin setStopID:[stop StopID]];
+                [pin setTitle:[NSString stringWithFormat:@"%@ - %@",[stop stopPointIndicator],[stop stopPointName]]];
+                [pin setSubtitle:[stop busNumbers]];
+                [pin setStopPointIndicator:[stop stopPointIndicator]];
+                [pin setBearing:[stop bearing]];
+                [pin setStopID:[stop stopID]];
                 
-                [pin setCoordinate:CLLocationCoordinate2DMake([[stop Latitude] doubleValue], [[stop Longitude] doubleValue])];
+                [pin setCoordinate:CLLocationCoordinate2DMake([[stop latitude] doubleValue], [[stop longitude] doubleValue])];
                 [self.mapView addAnnotation:pin];
                 
                 [stops addObject:stop];
@@ -202,7 +298,9 @@
     return jsonArray;
 }
 
--(float)distanceFromUserLocation:(CLLocation *)stopLocation{
+-(float)distanceFromUserLocation:(NSString *)latitude long:(NSString *)longitude{
+    
+    CLLocation *stopLocation = [[CLLocation alloc] initWithLatitude:[latitude doubleValue] longitude:[longitude doubleValue]];
     
     return [userLocation distanceFromLocation:stopLocation];
     
@@ -244,7 +342,6 @@
                            RATIO_DISTANCE,
                            URL_FINAL_STOPS];
     
-    NSLog(@"%@", URLString);
     
     return URLString;
 }
@@ -256,8 +353,6 @@
                            URL_BUSES_STOP_ID,
                            stopID,
                            URL_BUSES_RETURN_LIST_JUST_NUMBERS];
-    
-//    NSLog(@"%@", URLString);
     
     return URLString;
 }
@@ -283,7 +378,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     
-    NSLog(@"Load new location");
     userLocation = newLocation;
     
     if (!firstLoad) {
@@ -316,7 +410,7 @@
 {
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (Stop *stop in unsortedDataArray) {
-        [tempArray addObject:[NSNumber numberWithDouble:stop.distance]];
+        [tempArray addObject:stop.distance];
     }
     long count = unsortedDataArray.count;
     int i,j;
@@ -347,21 +441,6 @@
 }
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    
-    NSLog(@"update map");
-    
-    
-    
-//    if ([myThread isFinished] || myThread == nil) {
-//        [self.mapView removeAnnotations:[self.mapView annotations]];
-//        
-//        mapLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
-//        
-//        myThread = [[NSThread alloc] initWithTarget:self
-//                                           selector:@selector(loadBusStops)
-//                                             object:nil];
-//        [myThread start];
-//    }
     
     [self.mapView removeAnnotations:[self.mapView annotations]];
     
@@ -433,10 +512,83 @@
         } else {
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
             Stop *stop = stops[indexPath.row];
-            [[segue destinationViewController] setStopID:stop.StopID];
-            [[segue destinationViewController] setTitle:stop.StopPointName];
+            [[segue destinationViewController] setStopID:stop.stopID];
+            [[segue destinationViewController] setTitle:stop.stopPointName];
         }
     }
 }
+
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return _fetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        default:
+            return;
+    }
+}
+
+
+/*
+ // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
+ 
+ - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+ {
+ // In the simplest, most efficient, case, reload the table view.
+ [self.tableView reloadData];
+ }
+ */
+
 
 @end
