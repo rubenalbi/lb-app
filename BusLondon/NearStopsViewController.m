@@ -126,7 +126,7 @@
             [stopCell.addFavouriteButton setSelected:NO];
         }
         
-        stopCell.DistanceLabel.text = [NSString stringWithFormat:@"%.0f min",([[stop distance] doubleValue]/1.4)/60];
+        stopCell.DistanceLabel.text = [NSString stringWithFormat:@"%.0f min walk",([[stop distance] doubleValue]/1.4)/60];
         
         return stopCell;
     }
