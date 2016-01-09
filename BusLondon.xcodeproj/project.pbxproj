@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CC77C4A1C414E3100A1E52C /* SBJson4Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C3D1C414E3100A1E52C /* SBJson4Parser.m */; };
+		0CC77C4B1C414E3100A1E52C /* SBJson4StreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C3F1C414E3100A1E52C /* SBJson4StreamParser.m */; };
+		0CC77C4C1C414E3100A1E52C /* SBJson4StreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C411C414E3100A1E52C /* SBJson4StreamParserState.m */; };
+		0CC77C4D1C414E3100A1E52C /* SBJson4StreamTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C431C414E3100A1E52C /* SBJson4StreamTokeniser.m */; };
+		0CC77C4E1C414E3100A1E52C /* SBJson4StreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C451C414E3100A1E52C /* SBJson4StreamWriter.m */; };
+		0CC77C4F1C414E3100A1E52C /* SBJson4StreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C471C414E3100A1E52C /* SBJson4StreamWriterState.m */; };
+		0CC77C501C414E3100A1E52C /* SBJson4Writer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C491C414E3100A1E52C /* SBJson4Writer.m */; };
+		0CC77C601C41790D00A1E52C /* GenericService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C5F1C41790D00A1E52C /* GenericService.m */; };
+		0CF8BA861C418CBF00506A91 /* StopService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA851C418CBF00506A91 /* StopService.m */; };
+		0CF8BA891C418CFF00506A91 /* BusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA881C418CFF00506A91 /* BusService.m */; };
+		0CF8BA8E1C41976A00506A91 /* MyStopsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA8D1C41976A00506A91 /* MyStopsService.m */; };
 		870ABF5019BC8037001B7D2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870ABF4F19BC8037001B7D2E /* Foundation.framework */; };
 		870ABF5219BC8037001B7D2E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870ABF5119BC8037001B7D2E /* CoreGraphics.framework */; };
 		870ABF5419BC8037001B7D2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870ABF5319BC8037001B7D2E /* UIKit.framework */; };
@@ -27,7 +38,6 @@
 		874E8A5C1A24AF2E00536052 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874E8A5B1A24AF2E00536052 /* CoreData.framework */; };
 		874E8A601A24AFAD00536052 /* BusLondon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 874E8A5E1A24AFAD00536052 /* BusLondon.xcdatamodeld */; };
 		87588D901A07C2CA00242141 /* Bus.m in Sources */ = {isa = PBXBuildFile; fileRef = 87588D8F1A07C2CA00242141 /* Bus.m */; };
-		87588D9A1A07ECDC00242141 /* bus-sequences.csv in Resources */ = {isa = PBXBuildFile; fileRef = 87588D991A07ECDC00242141 /* bus-sequences.csv */; };
 		87588D9C1A07F21B00242141 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87588D9B1A07F21B00242141 /* MapKit.framework */; };
 		8787CFF01A02CCC300332808 /* StopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8787CFEF1A02CCC300332808 /* StopViewController.m */; };
 		8787CFF31A02CCF300332808 /* BusViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8787CFF21A02CCF300332808 /* BusViewCell.m */; };
@@ -53,6 +63,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CC77C3B1C414E3100A1E52C /* SBJson4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4.h; sourceTree = "<group>"; };
+		0CC77C3C1C414E3100A1E52C /* SBJson4Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4Parser.h; sourceTree = "<group>"; };
+		0CC77C3D1C414E3100A1E52C /* SBJson4Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4Parser.m; sourceTree = "<group>"; };
+		0CC77C3E1C414E3100A1E52C /* SBJson4StreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4StreamParser.h; sourceTree = "<group>"; };
+		0CC77C3F1C414E3100A1E52C /* SBJson4StreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4StreamParser.m; sourceTree = "<group>"; };
+		0CC77C401C414E3100A1E52C /* SBJson4StreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4StreamParserState.h; sourceTree = "<group>"; };
+		0CC77C411C414E3100A1E52C /* SBJson4StreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4StreamParserState.m; sourceTree = "<group>"; };
+		0CC77C421C414E3100A1E52C /* SBJson4StreamTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4StreamTokeniser.h; sourceTree = "<group>"; };
+		0CC77C431C414E3100A1E52C /* SBJson4StreamTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4StreamTokeniser.m; sourceTree = "<group>"; };
+		0CC77C441C414E3100A1E52C /* SBJson4StreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4StreamWriter.h; sourceTree = "<group>"; };
+		0CC77C451C414E3100A1E52C /* SBJson4StreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4StreamWriter.m; sourceTree = "<group>"; };
+		0CC77C461C414E3100A1E52C /* SBJson4StreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4StreamWriterState.h; sourceTree = "<group>"; };
+		0CC77C471C414E3100A1E52C /* SBJson4StreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4StreamWriterState.m; sourceTree = "<group>"; };
+		0CC77C481C414E3100A1E52C /* SBJson4Writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson4Writer.h; sourceTree = "<group>"; };
+		0CC77C491C414E3100A1E52C /* SBJson4Writer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJson4Writer.m; sourceTree = "<group>"; };
+		0CC77C5E1C41790D00A1E52C /* GenericService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericService.h; sourceTree = "<group>"; };
+		0CC77C5F1C41790D00A1E52C /* GenericService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericService.m; sourceTree = "<group>"; };
+		0CF8BA841C418CBF00506A91 /* StopService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopService.h; sourceTree = "<group>"; };
+		0CF8BA851C418CBF00506A91 /* StopService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopService.m; sourceTree = "<group>"; };
+		0CF8BA871C418CFF00506A91 /* BusService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusService.h; sourceTree = "<group>"; };
+		0CF8BA881C418CFF00506A91 /* BusService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusService.m; sourceTree = "<group>"; };
+		0CF8BA8C1C41976A00506A91 /* MyStopsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStopsService.h; sourceTree = "<group>"; };
+		0CF8BA8D1C41976A00506A91 /* MyStopsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStopsService.m; sourceTree = "<group>"; };
 		870ABF4C19BC8037001B7D2E /* BusLondon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BusLondon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		870ABF4F19BC8037001B7D2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		870ABF5119BC8037001B7D2E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -82,7 +115,6 @@
 		874E8A5F1A24AFAD00536052 /* BusLondon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BusLondon.xcdatamodel; sourceTree = "<group>"; };
 		87588D8E1A07C2CA00242141 /* Bus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bus.h; sourceTree = "<group>"; };
 		87588D8F1A07C2CA00242141 /* Bus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bus.m; sourceTree = "<group>"; };
-		87588D991A07ECDC00242141 /* bus-sequences.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "bus-sequences.csv"; sourceTree = "<group>"; };
 		87588D9B1A07F21B00242141 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8787CFEE1A02CCC300332808 /* StopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopViewController.h; sourceTree = "<group>"; };
 		8787CFEF1A02CCC300332808 /* StopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopViewController.m; sourceTree = "<group>"; };
@@ -129,6 +161,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C9F46991C258FD3002C6120 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8790B26D19C1C92B00BC1D63 /* StopViewCell.h */,
+				8790B26E19C1C92B00BC1D63 /* StopViewCell.m */,
+				8787CFF11A02CCF300332808 /* BusViewCell.h */,
+				8787CFF21A02CCF300332808 /* BusViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		0CC77C391C414D7700A1E52C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0CC77C3A1C414DE800A1E52C /* SBJson */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		0CC77C3A1C414DE800A1E52C /* SBJson */ = {
+			isa = PBXGroup;
+			children = (
+				0CC77C3B1C414E3100A1E52C /* SBJson4.h */,
+				0CC77C3C1C414E3100A1E52C /* SBJson4Parser.h */,
+				0CC77C3D1C414E3100A1E52C /* SBJson4Parser.m */,
+				0CC77C3E1C414E3100A1E52C /* SBJson4StreamParser.h */,
+				0CC77C3F1C414E3100A1E52C /* SBJson4StreamParser.m */,
+				0CC77C401C414E3100A1E52C /* SBJson4StreamParserState.h */,
+				0CC77C411C414E3100A1E52C /* SBJson4StreamParserState.m */,
+				0CC77C421C414E3100A1E52C /* SBJson4StreamTokeniser.h */,
+				0CC77C431C414E3100A1E52C /* SBJson4StreamTokeniser.m */,
+				0CC77C441C414E3100A1E52C /* SBJson4StreamWriter.h */,
+				0CC77C451C414E3100A1E52C /* SBJson4StreamWriter.m */,
+				0CC77C461C414E3100A1E52C /* SBJson4StreamWriterState.h */,
+				0CC77C471C414E3100A1E52C /* SBJson4StreamWriterState.m */,
+				0CC77C481C414E3100A1E52C /* SBJson4Writer.h */,
+				0CC77C491C414E3100A1E52C /* SBJson4Writer.m */,
+			);
+			name = SBJson;
+			sourceTree = "<group>";
+		};
+		0CC77C561C416F8600A1E52C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				0CF8BA8A1C41946600506A91 /* Support */,
+				0CF8BA841C418CBF00506A91 /* StopService.h */,
+				0CF8BA851C418CBF00506A91 /* StopService.m */,
+				0CF8BA871C418CFF00506A91 /* BusService.h */,
+				0CF8BA881C418CFF00506A91 /* BusService.m */,
+				0CF8BA8C1C41976A00506A91 /* MyStopsService.h */,
+				0CF8BA8D1C41976A00506A91 /* MyStopsService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		0CF8BA8A1C41946600506A91 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				0CC77C5E1C41790D00A1E52C /* GenericService.h */,
+				0CC77C5F1C41790D00A1E52C /* GenericService.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		870ABF4319BC8037001B7D2E = {
 			isa = PBXGroup;
 			children = (
@@ -165,13 +261,17 @@
 		870ABF5519BC8037001B7D2E /* BusLondon */ = {
 			isa = PBXGroup;
 			children = (
+				0CC77C561C416F8600A1E52C /* Service */,
+				0CC77C391C414D7700A1E52C /* API */,
 				8719FA5A1A29D60800BFB10A /* CoreData */,
 				874E8A5D1A24AF7500536052 /* Resources */,
-				8790B26719C1C4BD00BC1D63 /* Images */,
-				870ABF8819BC85B2001B7D2E /* Models */,
-				870ABF8719BC859C001B7D2E /* Controllers */,
-				870ABF6119BC8037001B7D2E /* Main.storyboard */,
+				870ABF8819BC85B2001B7D2E /* Model */,
+				870ABF8719BC859C001B7D2E /* Controller */,
+				0C9F46991C258FD3002C6120 /* View */,
+				870ABF5E19BC8037001B7D2E /* AppDelegate.h */,
+				870ABF5F19BC8037001B7D2E /* AppDelegate.m */,
 				870ABF6719BC8038001B7D2E /* Images.xcassets */,
+				870ABF6119BC8037001B7D2E /* Main.storyboard */,
 				870ABF5619BC8037001B7D2E /* Supporting Files */,
 			);
 			path = BusLondon;
@@ -206,26 +306,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		870ABF8719BC859C001B7D2E /* Controllers */ = {
+		870ABF8719BC859C001B7D2E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				870ABF5E19BC8037001B7D2E /* AppDelegate.h */,
-				870ABF5F19BC8037001B7D2E /* AppDelegate.m */,
 				870ABF8419BC8334001B7D2E /* NearStopsViewController.h */,
 				870ABF8519BC8334001B7D2E /* NearStopsViewController.m */,
-				8790B26D19C1C92B00BC1D63 /* StopViewCell.h */,
-				8790B26E19C1C92B00BC1D63 /* StopViewCell.m */,
 				8787CFEE1A02CCC300332808 /* StopViewController.h */,
 				8787CFEF1A02CCC300332808 /* StopViewController.m */,
-				8787CFF11A02CCF300332808 /* BusViewCell.h */,
-				8787CFF21A02CCF300332808 /* BusViewCell.m */,
 				87ABF9F91A2E6F29008A1C16 /* MyStopsViewController.h */,
 				87ABF9FA1A2E6F29008A1C16 /* MyStopsViewController.m */,
 			);
-			name = Controllers;
+			name = Controller;
 			sourceTree = "<group>";
 		};
-		870ABF8819BC85B2001B7D2E /* Models */ = {
+		870ABF8819BC85B2001B7D2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				871D6AC519BF2CC1005EBF7A /* Constants.h */,
@@ -236,7 +330,7 @@
 				8719FA5E1A29D65200BFB10A /* Stop.h */,
 				8719FA5F1A29D65200BFB10A /* Stop.m */,
 			);
-			name = Models;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		8719FA5A1A29D60800BFB10A /* CoreData */ = {
@@ -251,7 +345,7 @@
 		874E8A5D1A24AF7500536052 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				87588D991A07ECDC00242141 /* bus-sequences.csv */,
+				8790B26719C1C4BD00BC1D63 /* Images */,
 				874E8A5E1A24AFAD00536052 /* BusLondon.xcdatamodeld */,
 			);
 			name = Resources;
@@ -349,7 +443,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87588D9A1A07ECDC00242141 /* bus-sequences.csv in Resources */,
 				87D93A4F1A2F9258009BF680 /* favouritesSelected@3.png in Resources */,
 				87CB0B801A162E9100A09427 /* pinStopMap@2x.png in Resources */,
 				870ABF6819BC8038001B7D2E /* Images.xcassets in Resources */,
@@ -378,12 +471,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				874E8A601A24AFAD00536052 /* BusLondon.xcdatamodeld in Sources */,
+				0CF8BA861C418CBF00506A91 /* StopService.m in Sources */,
 				8790B26F19C1C92B00BC1D63 /* StopViewCell.m in Sources */,
+				0CC77C4E1C414E3100A1E52C /* SBJson4StreamWriter.m in Sources */,
+				0CC77C4C1C414E3100A1E52C /* SBJson4StreamParserState.m in Sources */,
 				8719FA601A29D65200BFB10A /* Stop.m in Sources */,
 				870ABF6019BC8037001B7D2E /* AppDelegate.m in Sources */,
+				0CC77C4D1C414E3100A1E52C /* SBJson4StreamTokeniser.m in Sources */,
+				0CC77C4B1C414E3100A1E52C /* SBJson4StreamParser.m in Sources */,
+				0CC77C601C41790D00A1E52C /* GenericService.m in Sources */,
 				87CB0B851A1687E800A09427 /* Pin.m in Sources */,
+				0CF8BA8E1C41976A00506A91 /* MyStopsService.m in Sources */,
+				0CC77C4A1C414E3100A1E52C /* SBJson4Parser.m in Sources */,
 				8719FA5D1A29D62500BFB10A /* StopDAO.m in Sources */,
 				870ABF5C19BC8037001B7D2E /* main.m in Sources */,
+				0CC77C4F1C414E3100A1E52C /* SBJson4StreamWriterState.m in Sources */,
+				0CC77C501C414E3100A1E52C /* SBJson4Writer.m in Sources */,
+				0CF8BA891C418CFF00506A91 /* BusService.m in Sources */,
 				8787CFF01A02CCC300332808 /* StopViewController.m in Sources */,
 				87ABF9FB1A2E6F29008A1C16 /* MyStopsViewController.m in Sources */,
 				87588D901A07C2CA00242141 /* Bus.m in Sources */,
