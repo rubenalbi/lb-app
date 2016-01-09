@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-#import <CoreData/CoreData.h>
-#import "Stop.h"
-#import "StopDAO.h"
-#import "Constants.h"
 #import "StopViewCell.h"
 #import "Pin.h"
 #import "StopViewController.h"
+#import "StopService.h"
+#import "BusService.h"
+#import "MyStopsService.h"
 
-@interface NearStopsViewController : UITableViewController <CLLocationManagerDelegate, MKMapViewDelegate, NSFetchedResultsControllerDelegate, UIAlertViewDelegate>{
+@interface NearStopsViewController : UITableViewController <CLLocationManagerDelegate, MKMapViewDelegate, UIAlertViewDelegate>{
     CLLocationManager * locationManager;
     CLLocation *userLocation;
     CLLocation *mapLocation;
@@ -25,8 +24,5 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 - (IBAction)addFavourites:(id)sender;
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

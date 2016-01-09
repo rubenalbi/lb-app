@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Constants.h"
-#import "Bus.h"
 #import "BusViewCell.h"
+#import "BusService.h"
 
 @interface StopViewController : UITableViewController
 

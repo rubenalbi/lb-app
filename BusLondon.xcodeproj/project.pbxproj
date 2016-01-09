@@ -219,6 +219,7 @@
 		0CF8BA8A1C41946600506A91 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				871D6AC519BF2CC1005EBF7A /* Constants.h */,
 				0CC77C5E1C41790D00A1E52C /* GenericService.h */,
 				0CC77C5F1C41790D00A1E52C /* GenericService.m */,
 			);
@@ -322,7 +323,6 @@
 		870ABF8819BC85B2001B7D2E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				871D6AC519BF2CC1005EBF7A /* Constants.h */,
 				87588D8E1A07C2CA00242141 /* Bus.h */,
 				87588D8F1A07C2CA00242141 /* Bus.m */,
 				87CB0B831A1687E800A09427 /* Pin.h */,

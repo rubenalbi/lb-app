@@ -13,34 +13,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    NSManagedObjectContext *context = [self managedObjectContext];
-//    Stops *stops = [NSEntityDescription
-//                                      insertNewObjectForEntityForName:@"Stops"
-//                                      inManagedObjectContext:context];
-//    stops.stopPointName = @"Test Bank";
-//    stops.stopID = @"SD789D";
-//    stops.stopPointType = @"Testland";
-//    stops.distance = [NSNumber numberWithDouble:200.23];
-//    
-//    NSError *error;
-//    if (![context save:&error]) {
-//        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-//    }
-//    
-//    
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription
-//                                   entityForName:@"Stops" inManagedObjectContext:context];
-//    [fetchRequest setEntity:entity];
-//    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-//    NSLog(@"----------------------------------");
-//    for (Stops *info in fetchedObjects) {
-//        NSLog(@"Name: %@", info.stopPointName);
-//        NSLog(@"stopID: %@", info.stopID);
-//        NSLog(@"Distance: %@", info.distance);
-//        NSLog(@"-----");
-//    }
-//    NSLog(@"----------------------------------");
     
     
     return YES;

@@ -7,17 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
-#import "Stop.h"
-#import "StopDAO.h"
+#import <CoreLocation/CoreLocation.h>
 #import "StopViewCell.h"
+#import "MyStopsService.h"
 
 
-@interface MyStopsViewController : UITableViewController <NSFetchedResultsControllerDelegate>{
-    
-}
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@interface MyStopsViewController : UITableViewController
 
 @end

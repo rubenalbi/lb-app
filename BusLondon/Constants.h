@@ -14,7 +14,7 @@
 
 #define URL_TFL_API                         @"http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1"
 
-#define RATIO_DISTANCE                      @"500"
+#define RATIO_DISTANCE  500
 #define URL_FINAL_STOPS                     @"&StopPointState=0&ReturnList=StopID,StopPointName,Towards,Bearing,StopPointIndicator,StopPointType,Latitude,Longitude"
 
 #define URL_BUSES_STOP_ID                   @"?Stopid="
