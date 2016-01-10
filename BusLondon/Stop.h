@@ -21,4 +21,6 @@
 @property NSString *busNumbers;
 @property NSNumber *distance;
 
+- (id)initWithDictionary:(NSDictionary*)stopJson;
+
 @end

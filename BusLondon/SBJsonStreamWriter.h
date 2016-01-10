@@ -1,22 +1,22 @@
 /*
  Copyright (c) 2010, Stig Brautaset.
  All rights reserved.
-
+ 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are
  met:
-
+ 
    Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
-
+  
    Redistributions in binary form must reproduce the above copyright
    notice, this list of conditions and the following disclaimer in the
    documentation and/or other materials provided with the distribution.
-
+ 
    Neither the name of the the author nor the names of its contributors
    may be used to endorse or promote products derived from this software
    without specific prior written permission.
-
+ 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
  IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -36,118 +36,103 @@
 @interface NSObject (SBProxyForJson)
 
 /**
- Allows generation of JSON for otherwise unsupported classes.
-
+ @brief Allows generation of JSON for otherwise unsupported classes.
+ 
  If you have a custom class that you want to create a JSON representation
  for you can implement this method in your class. It should return a
  representation of your object defined in terms of objects that can be
  translated into JSON. For example, a Person object might implement it like this:
-
-     - (id)proxyForJson {
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-        name, @"name",
-        phone, @"phone",
-        email, @"email",
-        nil];
-     }
-
+ 
+ @code
+ - (id)proxyForJson {
+	return [NSDictionary dictionaryWithObjectsAndKeys:
+	name, @"name",
+	phone, @"phone",
+	email, @"email",
+	nil];
+ }
+ @endcode
+ 
  */
 - (id)proxyForJson;
 
 @end
 
-@class SBJson4StreamWriter;
+@class SBJsonStreamWriter;
 
-@protocol SBJson4StreamWriterDelegate
+@protocol SBJsonStreamWriterDelegate
 
-- (void)writer:(SBJson4StreamWriter *)writer appendBytes:(const void *)bytes length:(NSUInteger)length;
+- (void)writer:(SBJsonStreamWriter*)writer appendBytes:(const void *)bytes length:(NSUInteger)length;
 
 @end
 
-@class SBJson4StreamWriterState;
+@class SBJsonStreamWriterState;
 
 /**
- The Stream Writer class.
-
+ @brief The Stream Writer class.
+ 
  Accepts a stream of messages and writes JSON of these to its delegate object.
-
+ 
  This class provides a range of high-, mid- and low-level methods. You can mix
  and match calls to these. For example, you may want to call -writeArrayOpen
  to start an array and then repeatedly call -writeObject: with various objects
  before finishing off with a -writeArrayClose call.
-
- Objective-C types are mapped to JSON types in the following way:
-
- - NSNull        -> null
- - NSString      -> string
- - NSArray       -> array
- - NSDictionary  -> object
- - NSNumber's -initWithBool:YES -> true
- - NSNumber's -initWithBool:NO  -> false
- - NSNumber      -> number
-
- NSNumber instances created with the -numberWithBool: method are
- converted into the JSON boolean "true" and "false" values, and vice
- versa. Any other NSNumber instances are converted to a JSON number the
- way you would expect.
-
- @warning: In JSON the keys of an object must be strings. NSDictionary
- keys need not be, but attempting to convert an NSDictionary with
- non-string keys into JSON will throw an exception.*
+  
+ @see @ref json2objc
 
  */
 
-@interface SBJson4StreamWriter : NSObject {
+@interface SBJsonStreamWriter : NSObject {
     NSMutableDictionary *cache;
 }
 
-@property (nonatomic, weak) SBJson4StreamWriterState *state; // Internal
-@property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal
+@property (nonatomic, unsafe_unretained) SBJsonStreamWriterState *state; // Internal
+@property (nonatomic, readonly, strong) NSMutableArray *stateStack; // Internal 
 
 /**
- delegate to receive JSON output
+ @brief delegate to receive JSON output
  Delegate that will receive messages with output.
  */
-@property (nonatomic, weak) id<SBJson4StreamWriterDelegate> delegate;
+@property (unsafe_unretained) id<SBJsonStreamWriterDelegate> delegate;
 
 /**
- The maximum depth.
-
+ @brief The maximum recursing depth.
+ 
  Defaults to 512. If the input is nested deeper than this the input will be deemed to be
  malicious and the parser returns nil, signalling an error. ("Nested too deep".) You can
  turn off this security feature by setting the maxDepth value to 0.
  */
-@property(nonatomic) NSUInteger maxDepth;
+@property NSUInteger maxDepth;
 
 /**
- Whether we are generating human-readable (multi line) JSON.
-
+ @brief Whether we are generating human-readable (multiline) JSON.
+ 
  Set whether or not to generate human-readable JSON. The default is NO, which produces
  JSON without any whitespace between tokens. If set to YES, generates human-readable
- JSON with line breaks after each array value and dictionary key/value pair, indented two
+ JSON with linebreaks after each array value and dictionary key/value pair, indented two
  spaces per nesting level.
  */
-@property(nonatomic) BOOL humanReadable;
+@property BOOL humanReadable;
 
 /**
- Whether or not to sort the dictionary keys in the output.
-
+ @brief Whether or not to sort the dictionary keys in the output.
+ 
  If this is set to YES, the dictionary keys in the JSON output will be in sorted order.
  (This is useful if you need to compare two structures, for example.) The default is NO.
  */
-@property(nonatomic) BOOL sortKeys;
+@property BOOL sortKeys;
 
 /**
- An optional comparator to be used if sortKeys is YES.
-
+ @brief An optional comparator to be used if sortKeys is YES.
+ 
  If this is nil, sorting will be done via @selector(compare:).
  */
-@property (nonatomic, copy) NSComparator sortKeysComparator;
+@property (copy) NSComparator sortKeysComparator;
 
-/// Contains the error description after an error has occurred.
-@property (nonatomic, copy) NSString *error;
+/// Contains the error description after an error has occured.
+@property (copy) NSString *error;
 
-/**
+/** 
  Write an NSDictionary to the JSON stream.
  @return YES if successful, or NO on failure
  */
@@ -159,7 +144,7 @@
  */
 - (BOOL)writeArray:(NSArray *)array;
 
-/**
+/** 
  Start writing an Object to the stream
  @return YES if successful, or NO on failure
 */
@@ -203,7 +188,7 @@
 
 @end
 
-@interface SBJson4StreamWriter (Private)
+@interface SBJsonStreamWriter (Private)
 - (BOOL)writeValue:(id)v;
 - (void)appendBytes:(const void *)bytes length:(NSUInteger)length;
 @end

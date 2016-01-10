@@ -30,36 +30,44 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#if !__has_feature(objc_arc)
-#error "This source file must be compiled with ARC enabled!"
-#endif
+#import "SBJsonStreamWriter.h"
+#import "SBJsonStreamWriterState.h"
 
-#import "SBJson4StreamWriter.h"
-#import "SBJson4StreamWriterState.h"
-
+static NSNumber *kNotANumber;
 static NSNumber *kTrue;
 static NSNumber *kFalse;
 static NSNumber *kPositiveInfinity;
 static NSNumber *kNegativeInfinity;
 
 
-@implementation SBJson4StreamWriter
+@implementation SBJsonStreamWriter
+
+@synthesize error;
+@synthesize maxDepth;
+@synthesize state;
+@synthesize stateStack;
+@synthesize humanReadable;
+@synthesize sortKeys;
+@synthesize sortKeysComparator;
 
 + (void)initialize {
-    kPositiveInfinity = [NSNumber numberWithDouble:+HUGE_VAL];
-    kNegativeInfinity = [NSNumber numberWithDouble:-HUGE_VAL];
+	kNotANumber = [NSDecimalNumber notANumber];
+    kPositiveInfinity = [NSNumber numberWithDouble:+INFINITY];
+    kNegativeInfinity = [NSNumber numberWithDouble:-INFINITY];
     kTrue = [NSNumber numberWithBool:YES];
     kFalse = [NSNumber numberWithBool:NO];
 }
 
 #pragma mark Housekeeping
 
+@synthesize delegate;
+
 - (id)init {
 	self = [super init];
 	if (self) {
-		_maxDepth = 32u;
-        _stateStack = [[NSMutableArray alloc] initWithCapacity:_maxDepth];
-        _state = [SBJson4StreamWriterStateStart sharedInstance];
+		maxDepth = 32u;
+        stateStack = [[NSMutableArray alloc] initWithCapacity:maxDepth];
+        state = [SBJsonStreamWriterStateStart sharedInstance];
         cache = [[NSMutableDictionary alloc] initWithCapacity:32];
     }
 	return self;
@@ -68,7 +76,7 @@ static NSNumber *kNegativeInfinity;
 #pragma mark Methods
 
 - (void)appendBytes:(const void *)bytes length:(NSUInteger)length {
-    [_delegate writer:self appendBytes:bytes length:length];
+    [delegate writer:self appendBytes:bytes length:length];
 }
 
 - (BOOL)writeObject:(NSDictionary *)dict {
@@ -76,10 +84,10 @@ static NSNumber *kNegativeInfinity;
 		return NO;
 
 	NSArray *keys = [dict allKeys];
-
-	if (_sortKeys) {
-		if (_sortKeysComparator) {
-			keys = [keys sortedArrayWithOptions:NSSortStable usingComparator:_sortKeysComparator];
+	
+	if (sortKeys) {
+		if (sortKeysComparator) {
+			keys = [keys sortedArrayWithOptions:NSSortStable usingComparator:sortKeysComparator];
 		}
 		else{
 			keys = [keys sortedArrayUsingSelector:@selector(compare:)];
@@ -112,94 +120,94 @@ static NSNumber *kNegativeInfinity;
 
 
 - (BOOL)writeObjectOpen {
-	if ([_state isInvalidState:self]) return NO;
-	if ([_state expectingKey:self]) return NO;
-	[_state appendSeparator:self];
-	if (_humanReadable && _stateStack.count) [_state appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable && stateStack.count) [state appendWhitespace:self];
 
-    [_stateStack addObject:_state];
-    self.state = [SBJson4StreamWriterStateObjectStart sharedInstance];
+    [stateStack addObject:state];
+    self.state = [SBJsonStreamWriterStateObjectStart sharedInstance];
 
-	if (_maxDepth && _stateStack.count > _maxDepth) {
+	if (maxDepth && stateStack.count > maxDepth) {
 		self.error = @"Nested too deep";
 		return NO;
 	}
 
-	[_delegate writer:self appendBytes:"{" length:1];
+	[delegate writer:self appendBytes:"{" length:1];
 	return YES;
 }
 
 - (BOOL)writeObjectClose {
-	if ([_state isInvalidState:self]) return NO;
+	if ([state isInvalidState:self]) return NO;
 
-    SBJson4StreamWriterState *prev = _state;
+    SBJsonStreamWriterState *prev = state;
 
-    self.state = [_stateStack lastObject];
-    [_stateStack removeLastObject];
+    self.state = [stateStack lastObject];
+    [stateStack removeLastObject];
 
-	if (_humanReadable) [prev appendWhitespace:self];
-	[_delegate writer:self appendBytes:"}" length:1];
+	if (humanReadable) [prev appendWhitespace:self];
+	[delegate writer:self appendBytes:"}" length:1];
 
-	[_state transitionState:self];
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeArrayOpen {
-	if ([_state isInvalidState:self]) return NO;
-	if ([_state expectingKey:self]) return NO;
-	[_state appendSeparator:self];
-	if (_humanReadable && _stateStack.count) [_state appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable && stateStack.count) [state appendWhitespace:self];
 
-    [_stateStack addObject:_state];
-	self.state = [SBJson4StreamWriterStateArrayStart sharedInstance];
+    [stateStack addObject:state];
+	self.state = [SBJsonStreamWriterStateArrayStart sharedInstance];
 
-	if (_maxDepth && _stateStack.count > _maxDepth) {
+	if (maxDepth && stateStack.count > maxDepth) {
 		self.error = @"Nested too deep";
 		return NO;
 	}
 
-	[_delegate writer:self appendBytes:"[" length:1];
+	[delegate writer:self appendBytes:"[" length:1];
 	return YES;
 }
 
 - (BOOL)writeArrayClose {
-	if ([_state isInvalidState:self]) return NO;
-	if ([_state expectingKey:self]) return NO;
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
 
-    SBJson4StreamWriterState *prev = _state;
+    SBJsonStreamWriterState *prev = state;
 
-    self.state = [_stateStack lastObject];
-    [_stateStack removeLastObject];
+    self.state = [stateStack lastObject];
+    [stateStack removeLastObject];
 
-	if (_humanReadable) [prev appendWhitespace:self];
-	[_delegate writer:self appendBytes:"]" length:1];
+	if (humanReadable) [prev appendWhitespace:self];
+	[delegate writer:self appendBytes:"]" length:1];
 
-	[_state transitionState:self];
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeNull {
-	if ([_state isInvalidState:self]) return NO;
-	if ([_state expectingKey:self]) return NO;
-	[_state appendSeparator:self];
-	if (_humanReadable) [_state appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
 
-	[_delegate writer:self appendBytes:"null" length:4];
-	[_state transitionState:self];
+	[delegate writer:self appendBytes:"null" length:4];
+	[state transitionState:self];
 	return YES;
 }
 
 - (BOOL)writeBool:(BOOL)x {
-	if ([_state isInvalidState:self]) return NO;
-	if ([_state expectingKey:self]) return NO;
-	[_state appendSeparator:self];
-	if (_humanReadable) [_state appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
 
 	if (x)
-		[_delegate writer:self appendBytes:"true" length:4];
+		[delegate writer:self appendBytes:"true" length:4];
 	else
-		[_delegate writer:self appendBytes:"false" length:5];
-	[_state transitionState:self];
+		[delegate writer:self appendBytes:"false" length:5];
+	[state transitionState:self];
 	return YES;
 }
 
@@ -232,50 +240,49 @@ static NSNumber *kNegativeInfinity;
 
 static const char *strForChar(int c) {
 	switch (c) {
-		case 0: return "\\u0000";
-		case 1: return "\\u0001";
-		case 2: return "\\u0002";
-		case 3: return "\\u0003";
-		case 4: return "\\u0004";
-		case 5: return "\\u0005";
-		case 6: return "\\u0006";
-		case 7: return "\\u0007";
-		case 8: return "\\b";
-		case 9: return "\\t";
-		case 10: return "\\n";
-		case 11: return "\\u000b";
-		case 12: return "\\f";
-		case 13: return "\\r";
-		case 14: return "\\u000e";
-		case 15: return "\\u000f";
-		case 16: return "\\u0010";
-		case 17: return "\\u0011";
-		case 18: return "\\u0012";
-		case 19: return "\\u0013";
-		case 20: return "\\u0014";
-		case 21: return "\\u0015";
-		case 22: return "\\u0016";
-		case 23: return "\\u0017";
-		case 24: return "\\u0018";
-		case 25: return "\\u0019";
-		case 26: return "\\u001a";
-		case 27: return "\\u001b";
-		case 28: return "\\u001c";
-		case 29: return "\\u001d";
-		case 30: return "\\u001e";
-		case 31: return "\\u001f";
-		case 34: return "\\\"";
-		case 92: return "\\\\";
-		default:
-			[NSException raise:@"Illegal escape char" format:@"-->%c<-- is not a legal escape character", c];
-			return NULL;
+		case 0: return "\\u0000"; break;
+		case 1: return "\\u0001"; break;
+		case 2: return "\\u0002"; break;
+		case 3: return "\\u0003"; break;
+		case 4: return "\\u0004"; break;
+		case 5: return "\\u0005"; break;
+		case 6: return "\\u0006"; break;
+		case 7: return "\\u0007"; break;
+		case 8: return "\\b"; break;
+		case 9: return "\\t"; break;
+		case 10: return "\\n"; break;
+		case 11: return "\\u000b"; break;
+		case 12: return "\\f"; break;
+		case 13: return "\\r"; break;
+		case 14: return "\\u000e"; break;
+		case 15: return "\\u000f"; break;
+		case 16: return "\\u0010"; break;
+		case 17: return "\\u0011"; break;
+		case 18: return "\\u0012"; break;
+		case 19: return "\\u0013"; break;
+		case 20: return "\\u0014"; break;
+		case 21: return "\\u0015"; break;
+		case 22: return "\\u0016"; break;
+		case 23: return "\\u0017"; break;
+		case 24: return "\\u0018"; break;
+		case 25: return "\\u0019"; break;
+		case 26: return "\\u001a"; break;
+		case 27: return "\\u001b"; break;
+		case 28: return "\\u001c"; break;
+		case 29: return "\\u001d"; break;
+		case 30: return "\\u001e"; break;
+		case 31: return "\\u001f"; break;
+		case 34: return "\\\""; break;
+		case 92: return "\\\\"; break;
 	}
+	NSLog(@"FUTFUTFUT: -->'%c'<---", c);
+	return "FUTFUTFUT";
 }
 
 - (BOOL)writeString:(NSString*)string {
-	if ([_state isInvalidState:self]) return NO;
-	[_state appendSeparator:self];
-	if (_humanReadable) [_state appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
 
 	NSMutableData *buf = [cache objectForKey:string];
 	if (!buf) {
@@ -307,8 +314,8 @@ static const char *strForChar(int c) {
         [cache setObject:buf forKey:string];
     }
 
-	[_delegate writer:self appendBytes:[buf bytes] length:[buf length]];
-	[_state transitionState:self];
+	[delegate writer:self appendBytes:[buf bytes] length:[buf length]];
+	[state transitionState:self];
 	return YES;
 }
 
@@ -316,10 +323,10 @@ static const char *strForChar(int c) {
 	if (number == kTrue || number == kFalse)
 		return [self writeBool:[number boolValue]];
 
-	if ([_state isInvalidState:self]) return NO;
-	if ([_state expectingKey:self]) return NO;
-	[_state appendSeparator:self];
-	if (_humanReadable) [_state appendWhitespace:self];
+	if ([state isInvalidState:self]) return NO;
+	if ([state expectingKey:self]) return NO;
+	[state appendSeparator:self];
+	if (humanReadable) [state appendWhitespace:self];
 
 	if ([kPositiveInfinity isEqualToNumber:number]) {
 		self.error = @"+Infinity is not a valid number in JSON";
@@ -329,7 +336,7 @@ static const char *strForChar(int c) {
 		self.error = @"-Infinity is not a valid number in JSON";
 		return NO;
 
-	} else if (isnan([number doubleValue])) {
+	} else if ([kNotANumber isEqualToNumber:number]) {
 		self.error = @"NaN is not a valid number in JSON";
 		return NO;
 	}
@@ -345,13 +352,18 @@ static const char *strForChar(int c) {
 		case 'C': case 'I': case 'S': case 'L': case 'Q':
 			len = snprintf(num, sizeof num, "%llu", [number unsignedLongLongValue]);
 			break;
-		case 'f': case 'd': default: {
-            len = snprintf(num, sizeof num, "%.17g", [number doubleValue]);
+		case 'f': case 'd': default:
+			if ([number isKindOfClass:[NSDecimalNumber class]]) {
+				char const *utf8 = [[number stringValue] UTF8String];
+				[delegate writer:self appendBytes:utf8 length: strlen(utf8)];
+				[state transitionState:self];
+				return YES;
+			}
+			len = snprintf(num, sizeof num, "%.17g", [number doubleValue]);
 			break;
-        }
 	}
-	[_delegate writer:self appendBytes:num length: len];
-	[_state transitionState:self];
+	[delegate writer:self appendBytes:num length: len];
+	[state transitionState:self];
 	return YES;
 }
 

@@ -15,4 +15,6 @@
 
 - (NSString*)getBusNumbers:(NSString*)stopId;
 
+- (NSMutableArray*)getStopsByLatitudeJson:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon ratio:(int)ratio;
+
 @end

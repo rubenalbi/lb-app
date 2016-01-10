@@ -43,12 +43,10 @@
     myStopsService = [[MyStopsService alloc] init];
     firstLoad = false;
     
-    // [self loadLocation];
-    // mapLocation = userLocation;
-    CLLocation *manualLoc = [[CLLocation alloc] initWithLatitude:51.508832 longitude:-0.127907];
-    mapLocation = manualLoc;
+    [self loadLocation];
+    mapLocation = userLocation;
     [self loadBusStops];
-    //self.mapView.delegate = self;
+    self.mapView.delegate = self;
     
     // Location map button
     UIButton *myLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -161,18 +159,6 @@
     }
 }
 
-- (void)loadBusRoutes{
-    StopViewCell *cell;
-    
-    for (int i = 0; i < [stops count]; i++) {
-        cell = (StopViewCell *)[(UITableView *)self.view cellForRowAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];
-        [[stops objectAtIndex:i] setBusNumbers:[stopService getBusNumbers:[[stops objectAtIndex:i] stopID]]];
-        [cell.BusesLabel setText:[[stops objectAtIndex:i] busNumbers]];
-        
-    }
-    
-}
-
 - (void)loadAnnotationBusRoutes{
     NSArray *annotations = [self.mapView annotations];
         for (int i = 0; i < [annotations count]; i++) {
@@ -182,11 +168,10 @@
         }
 }
 
-
-
 - (void)loadBusStops{
     
-    stops = [stopService getStopsByLatitude:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude ratio:RATIO_DISTANCE];
+    stops = [stopService getStopsByLatitudeJson:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude ratio:RATIO_DISTANCE];
+    //stops = [stopService getStopsByLatitude:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude ratio:RATIO_DISTANCE];
     //[self loadMyStops];
     [self.tableView reloadData];
     
@@ -202,9 +187,6 @@
         [pin setCoordinate:CLLocationCoordinate2DMake([[stop latitude] doubleValue], [[stop longitude] doubleValue])];
         [self.mapView addAnnotation:pin];
     }
-    
-    threadLoadRoutes = [[NSThread alloc] initWithTarget:self selector:@selector(loadBusRoutes) object:nil];
-    [threadLoadRoutes start];
     
 }
 
@@ -232,7 +214,6 @@
     userLocation = newLocation;
     
     if (!firstLoad) {
-       
 //        NSThread *threadLoadStops = [[NSThread alloc] initWithTarget:self selector:@selector(loadBusStops) object:nil];
 //        [threadLoadStops start];
         
@@ -241,10 +222,6 @@
         firstLoad = true;
         
         [self locateUser];
-        
-        // mapLocation = userLocation;
-        CLLocation *manualLoc = [[CLLocation alloc] initWithLatitude:51.508832 longitude:-0.127907];
-        mapLocation = manualLoc;
         
         NSLog(@"Location loaded.");
     }
@@ -280,9 +257,6 @@
     
     mapLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
     
-//    NSThread *threadLoadStops = [[NSThread alloc] initWithTarget:self selector:@selector(loadBusStops) object:nil];
-//    [threadLoadStops start];
-    
     [self loadBusStops];
 }
 
@@ -295,7 +269,6 @@
     if ([annotation isKindOfClass:[Pin class]]) {
         
         MKAnnotationView *annotationView = (MKAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-        
         
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
         annotationView.enabled = YES;

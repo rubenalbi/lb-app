@@ -12,12 +12,11 @@
 #import "Stop.h"
 #import "StopDAO.h"
 #import "Bus.h"
+#import "SBJson.h"
 
 @interface GenericService : NSObject
 
 - (NSMutableArray*)parseJSONtoArray:(NSString *)url;
-
-- (NSMutableArray *)insertionSort:(NSMutableArray *)unsortedDataArray;
 
 - (NSString*)getDistanceMinutesByMeters:(NSNumber*)meters;
 
