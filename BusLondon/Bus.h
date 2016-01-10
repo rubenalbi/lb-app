@@ -14,7 +14,10 @@
 @property NSString *LineName;
 @property NSString *DestinationName;
 @property NSString *VehicleID;
-@property NSString *RegistrationNumber;
 @property double EstimatedTime;
+
+- (id)initWithDictionary:(NSDictionary*)busJson;
+
+- (double)getEstimatedTimeMinutes;
 
 @end

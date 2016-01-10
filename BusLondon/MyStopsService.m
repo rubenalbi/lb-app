@@ -31,7 +31,6 @@
                         inManagedObjectContext:[self managedObjectContext]];
     stopDAO.stopPointName = stop.stopPointName;
     stopDAO.stopID = stop.stopID;
-    stopDAO.stopPointType = stop.stopPointType;
     stopDAO.towards = stop.towards;
     stopDAO.bearing = [NSString stringWithFormat:@"%@", stop.bearing];
     stopDAO.stopPointIndicator = stop.stopPointIndicator;

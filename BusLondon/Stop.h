@@ -12,7 +12,6 @@
 
 @property NSString *stopPointName;
 @property NSString *stopID;
-@property NSString *stopPointType;
 @property NSString *towards;
 @property NSString *bearing;
 @property NSString *stopPointIndicator;

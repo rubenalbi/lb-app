@@ -16,7 +16,7 @@
 
 @interface GenericService : NSObject
 
-- (NSMutableArray*)parseJSONtoArray:(NSString *)url;
+- (NSDictionary*) parseJsonFromURL:(NSString*)url;
 
 - (NSString*)getDistanceMinutesByMeters:(NSNumber*)meters;
 

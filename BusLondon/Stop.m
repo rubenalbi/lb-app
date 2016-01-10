@@ -13,26 +13,38 @@
 - (id)initWithDictionary:(NSDictionary*)stopJson {
     self = [super init];
     if (self) {
-        
-        [self setStopPointName:[stopJson valueForKey:@"commonName"]];
-        [self setStopID:[stopJson valueForKey:@"naptanId"]];
-        //[self setTowards:[stopJson valueForKey:@"commonName"]];
-        //[self setBearing:[stopJson valueForKey:@"commonName"]];
-        [self setStopPointIndicator:[stopJson valueForKey:@"stopLetter"]];
-        [self setLatitude:[stopJson valueForKey:@"lat"]];
-        [self setLongitude:[stopJson valueForKey:@"lon"]];
-        [self setBusNumbers:[self getStopLines:[stopJson valueForKey:@"lineGroup"]]];
-        NSLog(@"%@",self.busNumbers);
-        [self setDistance:[stopJson valueForKey:@"distance"]];
-        
+        [self setBusNumbers:[self getLines:[stopJson valueForKey:@"lineGroup"]]];
+        if([self busNumbers] != nil){
+            [self setStopPointName:[stopJson valueForKey:@"commonName"]];
+            [self setStopID:[stopJson valueForKey:@"naptanId"]];
+            [self setTowards:[self getTowards:[stopJson valueForKey:@"additionalProperties"]]];
+            //[self setBearing:[stopJson valueForKey:@"commonName"]];
+            [self setStopPointIndicator:[stopJson valueForKey:@"stopLetter"]];
+            [self setLatitude:[stopJson valueForKey:@"lat"]];
+            [self setLongitude:[stopJson valueForKey:@"lon"]];
+            [self setDistance:[stopJson valueForKey:@"distance"]];
+        } else {
+            self = nil;
+            return self;
+        }
     }
     return self;
 }
 
-- (NSString*) getStopLines:(NSDictionary*)lineGroup{
-    NSString *busnumbers = [lineGroup valueForKey:@"lineIdentifier"];
-    
-    return [NSString stringWithFormat:@"%@",[lineGroup valueForKey:@"lineIdentifier"]];
+- (NSString*) getLines:(NSDictionary*)lineGroup{
+    NSMutableArray *busNumbers = [lineGroup valueForKey:@"lineIdentifier"];
+    if (busNumbers != nil && [busNumbers count] > 0) {
+        return [[busNumbers objectAtIndex:0] componentsJoinedByString:@", "];
+    }
+    return nil;
+}
+
+- (NSString*) getTowards:(NSArray*)additionalProperties{
+    if (additionalProperties != nil && [additionalProperties count] > 1) {
+        NSDictionary *towards = [additionalProperties objectAtIndex:1];
+        return [towards valueForKey:@"value"];
+    }
+    return nil;
 }
 
 @end

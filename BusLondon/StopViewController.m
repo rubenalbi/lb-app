@@ -70,7 +70,7 @@
         if ([bus EstimatedTime] < 1) {
             busCell.estimatedTime.text = @"due" ;
         } else {
-            busCell.estimatedTime.text = [NSString stringWithFormat:@"%.0f min",[bus EstimatedTime]] ;
+            busCell.estimatedTime.text = [NSString stringWithFormat:@"%.0f min",[bus getEstimatedTimeMinutes]] ;
         }
         
         return busCell;

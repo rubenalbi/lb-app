@@ -31,6 +31,6 @@
 #define TFL_STOP_POINT_HIERARCHY_PARAM @"useStopPointHierarchy="
 #define TFL_RETURN_LINES_PARAM @"returnLines="
 #define TFL_STOP_TYPE_PUBLIC_BUS @"NaptanPublicBusCoachTram"
-#define TFL_APP_CREDENTIALS @"&app_id=b4cfdcd0&app_key=ee2d65d36b4f1881b46dd5d0d7c33c26"
+#define TFL_APP_CREDENTIALS @"app_id=b4cfdcd0&app_key=ee2d65d36b4f1881b46dd5d0d7c33c26"
 
 // https://api.tfl.gov.uk/StopPoint?lat=51.509980&lon=-0.133700&stopTypes=NaptanPublicBusCoachTram&radius=500&useStopPointHierarchy=True&returnLines=True&app_id=b4cfdcd0&app_key=ee2d65d36b4f1881b46dd5d0d7c33c26

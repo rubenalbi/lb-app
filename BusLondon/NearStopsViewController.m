@@ -41,22 +41,17 @@
     stopService = [[StopService alloc] init];
     busService = [[BusService alloc] init];
     myStopsService = [[MyStopsService alloc] init];
+    
     firstLoad = false;
     
     [self loadLocation];
     mapLocation = userLocation;
+    
     [self loadBusStops];
     self.mapView.delegate = self;
     
-    // Location map button
-    UIButton *myLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    myLocationButton.frame = CGRectMake(15, 15, 30, 30);
-    [myLocationButton setImage:[UIImage imageNamed:@"locationArrow.png"] forState:UIControlStateNormal];
-    [myLocationButton addTarget:self action:@selector(locateUser) forControlEvents:UIControlEventTouchUpInside];
-    
-    //add the button to the view
-    [self.mapView addSubview:myLocationButton];
-    
+    [self loadMapButton];
+
     // UIRefreshControl to update the list
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to update"];
@@ -125,7 +120,10 @@
 }
 
 - (IBAction)addFavourites:(id)sender{
-    StopViewCell *cell = (StopViewCell *)[(UITableView *)self.view cellForRowAtIndexPath:[NSIndexPath indexPathForItem:[sender tag] inSection:0]];
+    StopViewCell *cell = (StopViewCell *)[(UITableView *)self.view
+                                          cellForRowAtIndexPath:[NSIndexPath
+                                                                 indexPathForItem:[sender tag]
+                                                                 inSection:0]];
     
     if ([self stopExists:stops[[sender tag]]]) {
         NSLog(@"deleting favourites");
@@ -148,7 +146,6 @@
         
         [cell.addFavouriteButton setSelected:YES];
     }
-    
 }
 
 - (void)loadMyStops{
@@ -159,20 +156,11 @@
     }
 }
 
-- (void)loadAnnotationBusRoutes{
-    NSArray *annotations = [self.mapView annotations];
-        for (int i = 0; i < [annotations count]; i++) {
-            if ([[annotations objectAtIndex:i] class] == [Pin class]) {
-                [[annotations objectAtIndex:i] setSubtitle:[stopService getBusNumbers:[[annotations objectAtIndex:i] stopID]]];
-            }
-        }
-}
-
 - (void)loadBusStops{
     
-    stops = [stopService getStopsByLatitudeJson:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude ratio:RATIO_DISTANCE];
-    //stops = [stopService getStopsByLatitude:mapLocation.coordinate.latitude longitude:mapLocation.coordinate.longitude ratio:RATIO_DISTANCE];
-    //[self loadMyStops];
+    stops = [stopService getStopsByLatitude:mapLocation.coordinate.latitude
+                                      longitude:mapLocation.coordinate.longitude
+                                          radius:RATIO_DISTANCE];
     [self.tableView reloadData];
     
     for (Stop *stop in stops) {
@@ -214,8 +202,6 @@
     userLocation = newLocation;
     
     if (!firstLoad) {
-//        NSThread *threadLoadStops = [[NSThread alloc] initWithTarget:self selector:@selector(loadBusStops) object:nil];
-//        [threadLoadStops start];
         
         [self loadBusStops];
         
@@ -312,6 +298,13 @@
     [self performSegueWithIdentifier:@"showStop" sender:selectedPin];
 }
 
+-(void)loadMapButton{
+    UIButton *myLocationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    myLocationButton.frame = CGRectMake(15, 15, 30, 30);
+    [myLocationButton setImage:[UIImage imageNamed:@"locationArrow.png"] forState:UIControlStateNormal];
+    [myLocationButton addTarget:self action:@selector(locateUser) forControlEvents:UIControlEventTouchUpInside];
+    [self.mapView addSubview:myLocationButton];
+}
 //  Se pasa el objeto Centro que se ha seleccionado de la tabla para mostrar sus detalles
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
