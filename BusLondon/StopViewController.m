@@ -72,7 +72,7 @@
         } else {
             busCell.estimatedTime.text = [NSString stringWithFormat:@"%.0f min",[bus getEstimatedTimeMinutes]] ;
         }
-        
+        NSLog(@"%@ - %@",[bus LineName], [bus getStringNextBuses]);
         return busCell;
     }
     
@@ -103,5 +103,13 @@
 
 - (IBAction)refreshEstimatedTime:(id)sender {
     [self loadBuses];
+}
+
+//  Se pasa el objeto Centro que se ha seleccionado de la tabla para mostrar sus detalles
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"lineSequence"]) {
+        [[segue destinationViewController] setLineID: [buses[[[self.tableView indexPathForSelectedRow] row]] LineName]];
+    }
 }
 @end

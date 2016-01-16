@@ -10,10 +10,11 @@
 #import "Constants.h"
 #import "BusViewCell.h"
 #import "BusService.h"
-
+#import "LineSequenceViewController.h"
 @interface StopViewController : UITableViewController
 
 @property NSString *stopID;
+
 - (IBAction)refreshEstimatedTime:(id)sender;
 
 @end

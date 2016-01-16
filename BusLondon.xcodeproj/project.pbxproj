@@ -20,6 +20,7 @@
 		0C5C11E11C42821600FDD021 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D41C42821500FDD021 /* SBJsonUTF8Stream.m */; };
 		0C5C11E21C42821600FDD021 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D61C42821500FDD021 /* SBJsonWriter.m */; };
 		0CC77C601C41790D00A1E52C /* GenericService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C5F1C41790D00A1E52C /* GenericService.m */; };
+		0CDCACC11C46F35C003B421C /* LineSequenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CDCACC01C46F35C003B421C /* LineSequenceViewController.m */; };
 		0CF8BA861C418CBF00506A91 /* StopService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA851C418CBF00506A91 /* StopService.m */; };
 		0CF8BA891C418CFF00506A91 /* BusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA881C418CFF00506A91 /* BusService.m */; };
 		0CF8BA8E1C41976A00506A91 /* MyStopsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA8D1C41976A00506A91 /* MyStopsService.m */; };
@@ -95,6 +96,8 @@
 		0C5C11D61C42821500FDD021 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		0CC77C5E1C41790D00A1E52C /* GenericService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericService.h; sourceTree = "<group>"; };
 		0CC77C5F1C41790D00A1E52C /* GenericService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericService.m; sourceTree = "<group>"; };
+		0CDCACBF1C46F35C003B421C /* LineSequenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSequenceViewController.h; sourceTree = "<group>"; };
+		0CDCACC01C46F35C003B421C /* LineSequenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineSequenceViewController.m; sourceTree = "<group>"; };
 		0CF8BA841C418CBF00506A91 /* StopService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopService.h; sourceTree = "<group>"; };
 		0CF8BA851C418CBF00506A91 /* StopService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopService.m; sourceTree = "<group>"; };
 		0CF8BA871C418CFF00506A91 /* BusService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusService.h; sourceTree = "<group>"; };
@@ -341,6 +344,8 @@
 				8787CFEF1A02CCC300332808 /* StopViewController.m */,
 				87ABF9F91A2E6F29008A1C16 /* MyStopsViewController.h */,
 				87ABF9FA1A2E6F29008A1C16 /* MyStopsViewController.m */,
+				0CDCACBF1C46F35C003B421C /* LineSequenceViewController.h */,
+				0CDCACC01C46F35C003B421C /* LineSequenceViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				0C5C11DA1C42821600FDD021 /* SBJsonStreamParserAccumulator.m in Sources */,
 				0C5C11DF1C42821600FDD021 /* SBJsonStreamWriterState.m in Sources */,
 				0C5C11E01C42821600FDD021 /* SBJsonTokeniser.m in Sources */,
+				0CDCACC11C46F35C003B421C /* LineSequenceViewController.m in Sources */,
 				8719FA5D1A29D62500BFB10A /* StopDAO.m in Sources */,
 				870ABF5C19BC8037001B7D2E /* main.m in Sources */,
 				0CF8BA891C418CFF00506A91 /* BusService.m in Sources */,

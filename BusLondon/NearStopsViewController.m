@@ -17,12 +17,10 @@
     NSMutableArray *myStops;
     BOOL firstLoad;
     Pin *selectedPin;
-    NSThread* myThread;
-    double timeStart;
-    NSThread *threadLoadRoutes;
     StopService *stopService;
     BusService *busService;
     MyStopsService *myStopsService;
+    double lastUpdate;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -51,7 +49,7 @@
     self.mapView.delegate = self;
     
     [self loadMapButton];
-
+    
     // UIRefreshControl to update the list
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to update"];
@@ -159,8 +157,8 @@
 - (void)loadBusStops{
     
     stops = [stopService getStopsByLatitude:mapLocation.coordinate.latitude
-                                      longitude:mapLocation.coordinate.longitude
-                                          radius:RATIO_DISTANCE];
+                                  longitude:mapLocation.coordinate.longitude
+                                     radius:RATIO_DISTANCE];
     [self.tableView reloadData];
     
     for (Stop *stop in stops) {
@@ -238,13 +236,20 @@
 }
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
-    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(reloadMap) withObject:nil afterDelay:1.5];
+}
+
+- (void)reloadMap{
+    NSLog(@"Reloading map");
     [self.mapView removeAnnotations:[self.mapView annotations]];
     
     mapLocation = [[CLLocation alloc] initWithLatitude:self.mapView.centerCoordinate.latitude longitude:self.mapView.centerCoordinate.longitude];
     
     [self loadBusStops];
+    
 }
+
 
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
@@ -313,10 +318,10 @@
             [[segue destinationViewController] setStopID:[selectedPin stopID]];
             [[segue destinationViewController] setTitle:[selectedPin title]];
         } else {
-            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            Stop *stop = stops[indexPath.row];
-            [[segue destinationViewController] setStopID:stop.stopID];
-            [[segue destinationViewController] setTitle:stop.stopPointName];
+            [[segue destinationViewController]
+             setStopID:[stops[[[self.tableView indexPathForSelectedRow] row]] stopID]];
+            [[segue destinationViewController]
+             setTitle:[stops[[[self.tableView indexPathForSelectedRow] row]] stopPointName]];
         }
     }
 }

@@ -15,9 +15,12 @@
 @property NSString *DestinationName;
 @property NSString *VehicleID;
 @property double EstimatedTime;
+@property NSMutableArray *NextBuses;
 
 - (id)initWithDictionary:(NSDictionary*)busJson;
 
 - (double)getEstimatedTimeMinutes;
+
+- (NSString*)getStringNextBuses;
 
 @end

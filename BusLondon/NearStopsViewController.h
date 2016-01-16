@@ -11,7 +11,6 @@
 #import <MapKit/MapKit.h>
 #import "StopViewCell.h"
 #import "Pin.h"
-#import "StopViewController.h"
 #import "StopService.h"
 #import "BusService.h"
 #import "MyStopsService.h"

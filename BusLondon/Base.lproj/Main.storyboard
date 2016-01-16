@@ -121,7 +121,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hv-8d-nGr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1192" y="143"/>
+            <point key="canvasLocation" x="964" y="167"/>
         </scene>
         <!--Bonner Street-->
         <scene sceneID="c0y-Pb-emg">
@@ -202,6 +202,12 @@
                                             <color key="textColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="6 min" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBW-fC-JFs" userLabel="Next Buses">
+                                            <rect key="frame" x="472" y="36" width="87" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Sc8-xG-Reg" firstAttribute="trailing" secondItem="5s0-ec-vGk" secondAttribute="trailingMargin" id="3Cj-Pb-f3D"/>
@@ -211,6 +217,7 @@
                                     <outlet property="busNumber" destination="gzp-YI-qHh" id="PQi-qp-XKE"/>
                                     <outlet property="estimatedTime" destination="Sc8-xG-Reg" id="vgv-Ae-e8s"/>
                                     <outlet property="towards" destination="1YW-1v-W5b" id="NeM-kM-CY7"/>
+                                    <segue destination="RDX-af-4RL" kind="show" identifier="lineSequence" id="Tml-AW-uT0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -219,6 +226,7 @@
                             <outlet property="delegate" destination="ew6-vh-84a" id="baI-RW-CsH"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Bonner Street" id="TbE-Uw-Oqc">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="zgT-h7-iIX">
                             <connections>
@@ -226,10 +234,39 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gS6-8e-eyA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057" y="-359"/>
+            <point key="canvasLocation" x="1933" y="167"/>
+        </scene>
+        <!--Line Sequence View Controller-->
+        <scene sceneID="0mb-Tc-4We">
+            <objects>
+                <tableViewController id="RDX-af-4RL" customClass="LineSequenceViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="RXq-hC-ii3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SequenceCell" id="pRD-fq-YTl">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pRD-fq-YTl" id="T63-BR-Jjx">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="RDX-af-4RL" id="D5s-s6-HVj"/>
+                            <outlet property="delegate" destination="RDX-af-4RL" id="1A4-Tw-AO4"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kpy-0T-Oa5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2813" y="167"/>
         </scene>
         <!--My Stops-->
         <scene sceneID="e5l-Fw-71c">
@@ -320,7 +357,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ohy-Ls-DCJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1333" y="-605"/>
+            <point key="canvasLocation" x="1933" y="-733"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="weq-pY-rZa">

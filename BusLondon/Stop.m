@@ -31,6 +31,17 @@
     return self;
 }
 
+- (id)initWithLineSequienceDictionary:(NSDictionary*)stopJson {
+    self = [super init];
+    if (self) {
+        [self setStopPointName:[stopJson valueForKey:@"name"]];
+        [self setStopID:[stopJson valueForKey:@"id"]];
+        [self setLatitude:[stopJson valueForKey:@"lat"]];
+        [self setLongitude:[stopJson valueForKey:@"lon"]];
+    }
+    return self;
+}
+
 - (NSString*) getLines:(NSDictionary*)lineGroup{
     NSMutableArray *busNumbers = [lineGroup valueForKey:@"lineIdentifier"];
     if (busNumbers != nil && [busNumbers count] > 0) {

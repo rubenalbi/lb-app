@@ -13,4 +13,6 @@
 
 - (NSMutableArray*)getEstimatedTimeBusesByStopID:(NSString*)stopID;
 
+- (NSMutableArray*)getRouteSequence:(NSString*)lineID;
+
 @end

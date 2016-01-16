@@ -12,12 +12,26 @@
 
 - (NSMutableArray*)getEstimatedTimeBusesByStopID:(NSString*)stopID{
     NSMutableArray *buses = [[NSMutableArray alloc] init];
-    
     NSDictionary *estimatedTimes = [super parseJsonFromURL: [self getURLBusesByStopID:stopID]];
     for (NSDictionary *estimatedBus in estimatedTimes) {
-        [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
+        buses = [self addBusToList:estimatedBus array:buses];
     }
     return [self insertionBusSort:buses];
+}
+
+- (NSMutableArray*)getRouteSequence:(NSString*)lineID{
+    
+    NSMutableArray *stops = [[NSMutableArray alloc] init];
+    NSDictionary *sequences = [super parseJsonFromURL: [self getURLRouteSequence:lineID]];
+    NSMutableArray *stations = [sequences valueForKey:@"stations"];
+    
+    if (stations != nil && [stations count] > 0) {
+        for (NSDictionary *station in stations) {
+            [stops addObject:[[Stop alloc] initWithLineSequienceDictionary:station]];
+        }
+    }
+
+    return stops;
 }
 
 - (NSString*)getURLBusesByStopID:(NSString*)stopID{
@@ -31,6 +45,24 @@
                            stopID,
                            @"/",
                            TFL_ARRAIVALS_PARAM,
+                           @"?",
+                           TFL_APP_CREDENTIALS];
+    
+    NSLog(@"%@", URLString);
+    
+    return URLString;
+}
+
+- (NSString*)getURLRouteSequence:(NSString*)lineId{
+    
+    //https://api.tfl.gov.uk/Line/12/Route/Sequence/inbound
+    
+    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
+                           NEW_URL_TFL_API,
+                           TFL_LINE_PARAM,
+                           @"/",
+                           lineId,
+                           TFL_ROUTE_SEQUENCE_INBOUND_PARAM,
                            @"?",
                            TFL_APP_CREDENTIALS];
     
@@ -58,6 +90,21 @@
         }
     }
     return unsortedDataArray;
+}
+
+-(NSMutableArray*)addBusToList:(NSDictionary*)estimatedBus array:(NSMutableArray*)buses{
+    if ([buses count] == 0) {
+        [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
+        return buses;
+    }
+    for (int i = 0;[buses count] > i;i++){
+        if([[(Bus*)[buses objectAtIndex:i] LineName] isEqualToString: [estimatedBus valueForKey:@"lineName"]]){
+            [[(Bus*)[buses objectAtIndex:i] NextBuses] addObject:[NSString stringWithFormat:@"%f",[[estimatedBus objectForKey:@"timeToStation"] doubleValue]/60]];
+        }else{
+            [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
+        }
+    }
+    return buses;
 }
 
 @end
