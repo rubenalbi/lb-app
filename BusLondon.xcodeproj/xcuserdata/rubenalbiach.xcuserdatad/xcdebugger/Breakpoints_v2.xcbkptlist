@@ -86,11 +86,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BusLondon/BusService.m"
-            timestampString = "474647701.870849"
+            timestampString = "474735433.5841"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "-getRouteSequence:"
             landmarkType = "5">
          </BreakpointContent>
@@ -114,7 +114,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BusLondon/BusService.m"
@@ -134,12 +134,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BusLondon/BusService.m"
-            timestampString = "474648291.862473"
+            timestampString = "474735688.425659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-addBusToList:array:"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-unifyDuplicatedBuses:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BusLondon/BusService.m"
+            timestampString = "474735694.335626"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "-getEstimatedTimeBusesByStopID:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BusLondon/BusService.m"
+            timestampString = "474735745.193711"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "-getEstimatedTimeBusesByStopID:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BusLondon/BusService.m"
+            timestampString = "474735747.229523"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "-getEstimatedTimeBusesByStopID:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -150,12 +198,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BusLondon/BusService.m"
-            timestampString = "474648294.608502"
+            timestampString = "474735999.018065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "-addBusToList:array:"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "-unifyDuplicatedBuses:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

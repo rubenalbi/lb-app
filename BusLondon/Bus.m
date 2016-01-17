@@ -27,9 +27,4 @@
     return [self EstimatedTime]/60;
 }
 
-- (NSString*)getStringNextBuses{
-    
-    return [[self NextBuses] componentsJoinedByString:@", "];
-}
-
 @end

@@ -72,7 +72,7 @@
         } else {
             busCell.estimatedTime.text = [NSString stringWithFormat:@"%.0f min",[bus getEstimatedTimeMinutes]] ;
         }
-        NSLog(@"%@ - %@",[bus LineName], [bus getStringNextBuses]);
+        NSLog(@"%@ - %@",[bus LineName], [bus NextBuses]);
         return busCell;
     }
     

@@ -14,9 +14,11 @@
     NSMutableArray *buses = [[NSMutableArray alloc] init];
     NSDictionary *estimatedTimes = [super parseJsonFromURL: [self getURLBusesByStopID:stopID]];
     for (NSDictionary *estimatedBus in estimatedTimes) {
-        buses = [self addBusToList:estimatedBus array:buses];
+        [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
     }
-    return [self insertionBusSort:buses];
+    
+    buses = [self unifyDuplicatedBuses:[self insertionBusSort:buses]];
+    return buses;
 }
 
 - (NSMutableArray*)getRouteSequence:(NSString*)lineID{
@@ -92,19 +94,24 @@
     return unsortedDataArray;
 }
 
--(NSMutableArray*)addBusToList:(NSDictionary*)estimatedBus array:(NSMutableArray*)buses{
-    if ([buses count] == 0) {
-        [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
-        return buses;
-    }
+-(NSMutableArray*)unifyDuplicatedBuses:(NSMutableArray*)buses{
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
     for (int i = 0;[buses count] > i;i++){
-        if([[(Bus*)[buses objectAtIndex:i] LineName] isEqualToString: [estimatedBus valueForKey:@"lineName"]]){
-            [[(Bus*)[buses objectAtIndex:i] NextBuses] addObject:[NSString stringWithFormat:@"%f",[[estimatedBus objectForKey:@"timeToStation"] doubleValue]/60]];
+        if([temp count] > 0){
+            for (int j = 0; [temp count] > j; j++) {
+                if ([[buses[i] LineName] isEqualToString:[temp[j] LineName]]) {
+                    if (![[buses[i] VehicleID] isEqualToString:[temp[j] VehicleID]]) {
+                        [[temp[j] NextBuses] stringByAppendingString:[NSString stringWithFormat:@"%f, ", [buses[i] EstimatedTime]/60]];
+                    }
+                } else {
+                    [temp addObject:buses[i]];
+                }
+            }
         }else{
-            [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
+            [temp addObject:buses[i]];
         }
     }
-    return buses;
+    return temp;
 }
 
 @end
