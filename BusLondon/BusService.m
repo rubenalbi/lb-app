@@ -106,8 +106,7 @@
                             [temp[j] setNextBuses:@""];
                         }
                         
-                        [temp[j] setNextBuses:[[temp[j] NextBuses] stringByAppendingString:[NSString stringWithFormat:@"%ld, ",[[buses objectAtIndex:i] integerValue]/60]]]
-                        ;
+                        [temp[j] setNextBuses:[[temp[j] NextBuses] stringByAppendingString:[NSString stringWithFormat:@"%@, ",[[buses objectAtIndex:i] getEstimatedTimeMinutes]]]]                   ;
                         NSLog(@"Break, no copying bus");
                         exist = true;
                         break;

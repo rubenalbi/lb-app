@@ -63,7 +63,7 @@
         busCell = [tableView dequeueReusableCellWithIdentifier:@"BusCell" forIndexPath:indexPath];
         Bus *bus = buses[indexPath.row];
         
-        NSLog(@"estimated minutes %@", [bus getEstimatedTimeMinutes]);
+        NSLog(@"estimated minutes %@", [bus getEstimatedTimeMinutes]);
         
         busCell.busNumber.text = [bus LineName];
         busCell.towards.text = [bus DestinationName];

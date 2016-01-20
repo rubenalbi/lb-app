@@ -31,7 +31,7 @@
 }
 
 - (NSString*)getEstimatedTimeMinutes{
-    return [NSString stringWithFormat:@"%.0f min",[self EstimatedTime]/60];
+    return [NSString stringWithFormat:@"%.0f",[self EstimatedTime]/60];
 }
 
 @end
