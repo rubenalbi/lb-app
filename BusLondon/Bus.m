@@ -10,6 +10,12 @@
 
 @implementation Bus
 
+-(id)init{
+    self = [super init];
+    [self setNextBuses:@""];
+    return self;
+}
+
 - (id)initWithDictionary:(NSDictionary*)busJson {
     self = [super init];
     if (self) {
@@ -18,13 +24,14 @@
         [self setDestinationName:[busJson valueForKey:@"towards"]];
         [self setVehicleID:[busJson valueForKey:@"vehicleId"]];
         [self setEstimatedTime:[[busJson objectForKey:@"timeToStation"] doubleValue]];
+        
     }
     
     return self;
 }
 
-- (double)getEstimatedTimeMinutes{
-    return [self EstimatedTime]/60;
+- (NSString*)getEstimatedTimeMinutes{
+    return [NSString stringWithFormat:@"%.0f min",[self EstimatedTime]/60];
 }
 
 @end

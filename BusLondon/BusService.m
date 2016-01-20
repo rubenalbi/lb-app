@@ -77,7 +77,7 @@
 {
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
     for (Bus *bus in unsortedDataArray) {
-        [tempArray addObject:[NSNumber numberWithDouble:bus.EstimatedTime]];
+        [tempArray addObject:[NSNumber numberWithDouble:[bus EstimatedTime]]];
     }
     long count = unsortedDataArray.count;
     int i,j;
@@ -96,17 +96,30 @@
 
 -(NSMutableArray*)unifyDuplicatedBuses:(NSMutableArray*)buses{
     NSMutableArray *temp = [[NSMutableArray alloc] init];
+    bool exist = false;
     for (int i = 0;[buses count] > i;i++){
         if([temp count] > 0){
             for (int j = 0; [temp count] > j; j++) {
                 if ([[buses[i] LineName] isEqualToString:[temp[j] LineName]]) {
                     if (![[buses[i] VehicleID] isEqualToString:[temp[j] VehicleID]]) {
-                        [[temp[j] NextBuses] stringByAppendingString:[NSString stringWithFormat:@"%f, ", [buses[i] EstimatedTime]/60]];
+                        if ([temp[j] NextBuses] == nil) {
+                            [temp[j] setNextBuses:@""];
+                        }
+                        
+                        [temp[j] setNextBuses:[[temp[j] NextBuses] stringByAppendingString:[NSString stringWithFormat:@"%ld, ",[[buses objectAtIndex:i] integerValue]/60]]]
+                        ;
+                        NSLog(@"Break, no copying bus");
+                        exist = true;
+                        break;
                     }
-                } else {
-                    [temp addObject:buses[i]];
                 }
             }
+            if (!exist) {
+                NSLog(@"adding component");
+                [temp addObject:buses[i]];
+                exist = false;
+            }
+            
         }else{
             [temp addObject:buses[i]];
         }
