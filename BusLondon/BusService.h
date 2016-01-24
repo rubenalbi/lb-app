@@ -11,7 +11,7 @@
 
 @interface BusService : GenericService
 
-- (NSMutableArray*)getStopArrivals:(NSString*)stopID;
+- (NSMutableArray*)getStopArrivals:(NSString*)stopID unifiedList:(BOOL)unified;
 
 - (NSMutableArray*)getLineStops:(NSString*)lineID;
 

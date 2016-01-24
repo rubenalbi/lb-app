@@ -18,11 +18,15 @@
     return self;
 }
 
-- (NSMutableArray*)getStopArrivals:(NSString*)stopID{
+- (NSMutableArray*)getStopArrivals:(NSString*)stopID unifiedList:(BOOL)unified{
     
-    return [self unifyDuplicatedBuses:
+    if(unified){
+        return [self unifyDuplicatedBuses:
             [self insertionBusSort:
              [busRepository findStopArrivals:stopID]]];
+    }
+    return  [self insertionBusSort:
+             [busRepository findStopArrivals:stopID]];
 }
 
 - (NSMutableArray*)getLineStops:(NSString*)lineID{

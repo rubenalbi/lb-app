@@ -83,7 +83,7 @@
 }
 
 - (void)loadBuses{
-    buses = [busService getStopArrivals:[self stopID]];
+    buses = [busService getStopArrivals:[self stopID] unifiedList:true];
     [self.tableView reloadData];
     
 }
