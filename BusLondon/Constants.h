@@ -25,6 +25,7 @@
 
 #define NEW_URL_TFL_API @"https://api.tfl.gov.uk/"
 #define TFL_STOP_POINT_PARAM @"StopPoint"
+#define TFL_STOPPOINTS_PARAM @"stoppoints"
 #define TFL_ARRAIVALS_PARAM @"Arrivals"
 #define TFL_STOP_TYPE_PARAM @"stopTypes="
 #define TFL_RADIUS_PARAM @"radius="

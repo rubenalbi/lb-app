@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Constants.h"
 #import "Stop.h"
 #import "StopDAO.h"
 #import "Bus.h"
-#import "SBJson.h"
+#import "StopRepository.h"
+#import "BusRepository.h"
 
 @interface GenericService : NSObject
-
-- (NSDictionary*) parseJsonFromURL:(NSString*)url;
 
 - (NSString*)getDistanceMinutesByMeters:(NSNumber*)meters;
 

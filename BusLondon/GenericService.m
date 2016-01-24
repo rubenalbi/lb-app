@@ -14,11 +14,4 @@
     return [NSString stringWithFormat:@"%.0f min walk",([meters doubleValue]/1.4)/60];
 }
 
-- (NSDictionary*) parseJsonFromURL:(NSString*)url{
-    NSURL *responseURL = [NSURL URLWithString:url];
-    NSString *response = [NSString stringWithContentsOfURL:responseURL encoding:NSUTF8StringEncoding error:nil];
-    
-    SBJsonParser *parser = [[SBJsonParser alloc] init];
-    return [parser objectWithString:response error:nil];
-}
 @end

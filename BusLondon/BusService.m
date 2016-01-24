@@ -8,69 +8,27 @@
 
 #import "BusService.h"
 
-@implementation BusService
-
-- (NSMutableArray*)getEstimatedTimeBusesByStopID:(NSString*)stopID{
-    NSMutableArray *buses = [[NSMutableArray alloc] init];
-    NSDictionary *estimatedTimes = [super parseJsonFromURL: [self getURLBusesByStopID:stopID]];
-    for (NSDictionary *estimatedBus in estimatedTimes) {
-        [buses addObject:[[Bus alloc] initWithDictionary:estimatedBus]];
-    }
-    
-    buses = [self unifyDuplicatedBuses:[self insertionBusSort:buses]];
-    return buses;
+@implementation BusService{
+    BusRepository *busRepository;
 }
 
-- (NSMutableArray*)getRouteSequence:(NSString*)lineID{
-    
-    NSMutableArray *stops = [[NSMutableArray alloc] init];
-    NSDictionary *sequences = [super parseJsonFromURL: [self getURLRouteSequence:lineID]];
-    NSMutableArray *stations = [sequences valueForKey:@"stations"];
-    
-    if (stations != nil && [stations count] > 0) {
-        for (NSDictionary *station in stations) {
-            [stops addObject:[[Stop alloc] initWithLineSequienceDictionary:station]];
-        }
-    }
-
-    return stops;
+-(id)init{
+    self = [super init];
+    busRepository = [[BusRepository alloc] init];
+    return self;
 }
 
-- (NSString*)getURLBusesByStopID:(NSString*)stopID{
+- (NSMutableArray*)getStopArrivals:(NSString*)stopID{
     
-    //https://api.tfl.gov.uk/StopPoint/490011516Y/Arrivals?app_id=&app_key=
-    
-    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
-                           NEW_URL_TFL_API,
-                           TFL_STOP_POINT_PARAM,
-                           @"/",
-                           stopID,
-                           @"/",
-                           TFL_ARRAIVALS_PARAM,
-                           @"?",
-                           TFL_APP_CREDENTIALS];
-    
-    NSLog(@"%@", URLString);
-    
-    return URLString;
+    return [self unifyDuplicatedBuses:
+            [self insertionBusSort:
+             [busRepository findStopArrivals:stopID]]];
 }
 
-- (NSString*)getURLRouteSequence:(NSString*)lineId{
+- (NSMutableArray*)getLineStops:(NSString*)lineID{
+
+    return [busRepository findLineStops:lineID];
     
-    //https://api.tfl.gov.uk/Line/12/Route/Sequence/inbound
-    
-    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@",
-                           NEW_URL_TFL_API,
-                           TFL_LINE_PARAM,
-                           @"/",
-                           lineId,
-                           TFL_ROUTE_SEQUENCE_INBOUND_PARAM,
-                           @"?",
-                           TFL_APP_CREDENTIALS];
-    
-    NSLog(@"%@", URLString);
-    
-    return URLString;
 }
 
 -(NSMutableArray *)insertionBusSort:(NSMutableArray *)unsortedDataArray
@@ -102,11 +60,7 @@
             for (int j = 0; [temp count] > j; j++) {
                 if ([[buses[i] LineName] isEqualToString:[temp[j] LineName]]) {
                     if (![[buses[i] VehicleID] isEqualToString:[temp[j] VehicleID]]) {
-                        if ([temp[j] NextBuses] == nil) {
-                            [temp[j] setNextBuses:@""];
-                        }
-                        
-                        [temp[j] setNextBuses:[[temp[j] NextBuses] stringByAppendingString:[NSString stringWithFormat:@"%@, ",[[buses objectAtIndex:i] getEstimatedTimeMinutes]]]]                   ;
+                        [[temp[j] NextBuses] addObject:[[buses objectAtIndex:i] getEstimatedTimeMinutes]];
                         NSLog(@"Break, no copying bus");
                         exist = true;
                         break;

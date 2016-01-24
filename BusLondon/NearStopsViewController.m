@@ -156,7 +156,7 @@
 
 - (void)loadBusStops{
     
-    stops = [stopService getStopsByLatitude:mapLocation.coordinate.latitude
+    stops = [stopService getNearStops:mapLocation.coordinate.latitude
                                   longitude:mapLocation.coordinate.longitude
                                      radius:RATIO_DISTANCE];
     [self.tableView reloadData];

@@ -8,56 +8,18 @@
 
 #import "StopService.h"
 
-@implementation StopService
-
-- (NSMutableArray*)getStopsByLatitude:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon radius:(int)radius{
-    double timeStart = [[NSDate date] timeIntervalSince1970];
-    NSMutableArray *stops = [[NSMutableArray alloc] init];
-    
-    NSDictionary *stopPoints = [[super parseJsonFromURL:
-                                 [self getURLStopsByLatitutde:lat longitude:lon radius:radius]]
-                                valueForKey:@"stopPoints"];
-    
-    for (NSDictionary *stop in stopPoints) {
-        @try {
-            [stops addObject:[[Stop alloc] initWithDictionary:stop]];
-        }
-        @catch (NSException *exception) {
-            // stop is not created if doesn´t have line numbers
-        }
-    }
-    
-    NSLog(@"Time JSON - %f", [[NSDate date] timeIntervalSince1970] - timeStart);
-    
-    return [self insertionStopsSort:stops];
+@implementation StopService{
+    StopRepository *stopRepository;
 }
 
-- (NSString*)getURLStopsByLatitutde:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon radius:(int)radius{
-    
-    // https://api.tfl.gov.uk/StopPoint?lat=51.509980&lon=-0.133700&stopTypes=NaptanPublicBusCoachTram&radius=300&returnLines=True&app_id=b4cfdcd0&app_key=ee2d65d36b4f1881b46dd5d0d7c33c26
+-(id)init{
+    self = [super init];
+    stopRepository = [[StopRepository alloc] init];
+    return self;
+}
 
-    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%f%@%f%@%@%@%@%@%d%@%@%@%@%@",
-                           NEW_URL_TFL_API,
-                           TFL_STOP_POINT_PARAM,
-                           @"?",
-                           @"lat=",
-                           lat,
-                           @"&lon=",
-                           lon,
-                           @"&",
-                           TFL_STOP_TYPE_PARAM,
-                           TFL_STOP_TYPE_PUBLIC_BUS,
-                           @"&",
-                           TFL_RADIUS_PARAM,
-                           radius,
-                           @"&",
-                           TFL_RETURN_LINES_PARAM,
-                           @"True",
-                           @"&",
-                           TFL_APP_CREDENTIALS];
-    NSLog(@"%@", URLString);
-    
-    return URLString;
+- (NSMutableArray*)getNearStops:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon radius:(int)radius{
+    return [self insertionStopsSort:[stopRepository findStops:lat longitude:lon radius:radius]];
 }
 
 -(NSMutableArray *)insertionStopsSort:(NSMutableArray *)unsortedDataArray

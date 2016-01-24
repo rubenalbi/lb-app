@@ -13,6 +13,6 @@
         <attribute name="towards" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Stop" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="Stop" positionX="-63" positionY="-18" width="128" height="195"/>
     </elements>
 </model>

@@ -72,7 +72,7 @@
         } else {
             busCell.estimatedTime.text = [bus getEstimatedTimeMinutes];
         }
-        NSLog(@"%@ - %@",[bus LineName], [bus NextBuses]);
+        NSLog(@"%@ - %@",[bus LineName], [[bus NextBuses] componentsJoinedByString:@", "]);
         return busCell;
     }
     
@@ -83,7 +83,7 @@
 }
 
 - (void)loadBuses{
-    buses = [busService getEstimatedTimeBusesByStopID:[self stopID]];
+    buses = [busService getStopArrivals:[self stopID]];
     [self.tableView reloadData];
     
 }

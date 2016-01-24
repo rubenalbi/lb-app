@@ -22,6 +22,4 @@
 
 - (id)initWithDictionary:(NSDictionary*)stopJson;
 
-- (id)initWithLineSequienceDictionary:(NSDictionary*)stopJson;
-
 @end

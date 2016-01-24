@@ -12,7 +12,7 @@
 
 -(id)init{
     self = [super init];
-    [self setNextBuses:@""];
+    [self setNextBuses:[[NSMutableArray alloc] init]];
     return self;
 }
 
@@ -24,7 +24,7 @@
         [self setDestinationName:[busJson valueForKey:@"towards"]];
         [self setVehicleID:[busJson valueForKey:@"vehicleId"]];
         [self setEstimatedTime:[[busJson objectForKey:@"timeToStation"] doubleValue]];
-        
+        [self setNextBuses:[[NSMutableArray alloc] init]];
     }
     
     return self;

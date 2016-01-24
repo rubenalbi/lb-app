@@ -11,8 +11,8 @@
 
 @interface BusService : GenericService
 
-- (NSMutableArray*)getEstimatedTimeBusesByStopID:(NSString*)stopID;
+- (NSMutableArray*)getStopArrivals:(NSString*)stopID;
 
-- (NSMutableArray*)getRouteSequence:(NSString*)lineID;
+- (NSMutableArray*)getLineStops:(NSString*)lineID;
 
 @end

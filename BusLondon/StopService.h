@@ -11,6 +11,6 @@
 
 @interface StopService : GenericService
 
-- (NSMutableArray*)getStopsByLatitude:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon radius:(int)radius;
+- (NSMutableArray*)getNearStops:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon radius:(int)radius;
 
 @end

@@ -20,7 +20,8 @@
     [super viewDidLoad];
     
     BusService *busService = [[BusService alloc] init];
-    stops = [busService getRouteSequence:[self lineID]];
+    stops = [busService getLineStops:[self lineID]];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -51,17 +52,18 @@
     UITableViewCell *cell;
     
     //  If stops are not loaded a loading data row is created by default
-    if (stops.count > 0) {
+    if (stops != nil && stops.count > 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SequenceCell" forIndexPath:indexPath];
         Stop *stop = stops[indexPath.row];
         
         cell.textLabel.text = [stop stopPointName];
+        NSLog(@"%@ - %@", stop.stopPointIndicator, stop.stopPointName);
     
         
         return cell;
     }
     
-    cell = [tableView dequeueReusableCellWithIdentifier:@"PlaceHolder" forIndexPath:indexPath];
+    cell = [tableView dequeueReusableCellWithIdentifier:@"SequenceCell" forIndexPath:indexPath];
     cell.textLabel.text = @"Loading data...";
     
     return cell;

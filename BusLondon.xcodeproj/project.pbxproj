@@ -19,6 +19,10 @@
 		0C5C11E01C42821600FDD021 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D21C42821500FDD021 /* SBJsonTokeniser.m */; };
 		0C5C11E11C42821600FDD021 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D41C42821500FDD021 /* SBJsonUTF8Stream.m */; };
 		0C5C11E21C42821600FDD021 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D61C42821500FDD021 /* SBJsonWriter.m */; };
+		0C8D99841C552BE300692184 /* UrlUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D99831C552BE300692184 /* UrlUtil.m */; };
+		0CABB8091C55601E00686364 /* StopRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB8081C55601E00686364 /* StopRepository.m */; };
+		0CABB80D1C55605D00686364 /* GenericRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB80C1C55605D00686364 /* GenericRepository.m */; };
+		0CABB8101C55685E00686364 /* BusRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB80F1C55685E00686364 /* BusRepository.m */; };
 		0CC77C601C41790D00A1E52C /* GenericService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC77C5F1C41790D00A1E52C /* GenericService.m */; };
 		0CDCACC11C46F35C003B421C /* LineSequenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CDCACC01C46F35C003B421C /* LineSequenceViewController.m */; };
 		0CF8BA861C418CBF00506A91 /* StopService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF8BA851C418CBF00506A91 /* StopService.m */; };
@@ -94,6 +98,14 @@
 		0C5C11D41C42821500FDD021 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		0C5C11D51C42821500FDD021 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		0C5C11D61C42821500FDD021 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		0C8D99821C552BE300692184 /* UrlUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlUtil.h; sourceTree = "<group>"; };
+		0C8D99831C552BE300692184 /* UrlUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlUtil.m; sourceTree = "<group>"; };
+		0CABB8071C55601E00686364 /* StopRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRepository.h; sourceTree = "<group>"; };
+		0CABB8081C55601E00686364 /* StopRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRepository.m; sourceTree = "<group>"; };
+		0CABB80B1C55605D00686364 /* GenericRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericRepository.h; sourceTree = "<group>"; };
+		0CABB80C1C55605D00686364 /* GenericRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericRepository.m; sourceTree = "<group>"; };
+		0CABB80E1C55685E00686364 /* BusRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusRepository.h; sourceTree = "<group>"; };
+		0CABB80F1C55685E00686364 /* BusRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusRepository.m; sourceTree = "<group>"; };
 		0CC77C5E1C41790D00A1E52C /* GenericService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericService.h; sourceTree = "<group>"; };
 		0CC77C5F1C41790D00A1E52C /* GenericService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericService.m; sourceTree = "<group>"; };
 		0CDCACBF1C46F35C003B421C /* LineSequenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSequenceViewController.h; sourceTree = "<group>"; };
@@ -179,6 +191,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C8D99811C552BAC00692184 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				0CABB80A1C55603900686364 /* Support */,
+				0CABB8071C55601E00686364 /* StopRepository.h */,
+				0CABB8081C55601E00686364 /* StopRepository.m */,
+				0CABB80B1C55605D00686364 /* GenericRepository.h */,
+				0CABB80C1C55605D00686364 /* GenericRepository.m */,
+				0CABB80E1C55685E00686364 /* BusRepository.h */,
+				0CABB80F1C55685E00686364 /* BusRepository.m */,
+			);
+			name = Repository;
+			sourceTree = "<group>";
+		};
 		0C9F46991C258FD3002C6120 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +214,15 @@
 				8787CFF21A02CCF300332808 /* BusViewCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		0CABB80A1C55603900686364 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D99821C552BE300692184 /* UrlUtil.h */,
+				0C8D99831C552BE300692184 /* UrlUtil.m */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 		0CC77C391C414D7700A1E52C /* API */ = {
@@ -290,6 +325,7 @@
 		870ABF5519BC8037001B7D2E /* BusLondon */ = {
 			isa = PBXGroup;
 			children = (
+				0C8D99811C552BAC00692184 /* Repository */,
 				0CC77C561C416F8600A1E52C /* Service */,
 				0CC77C391C414D7700A1E52C /* API */,
 				8719FA5A1A29D60800BFB10A /* CoreData */,
@@ -511,6 +547,8 @@
 				0CC77C601C41790D00A1E52C /* GenericService.m in Sources */,
 				87CB0B851A1687E800A09427 /* Pin.m in Sources */,
 				0C5C11DB1C42821600FDD021 /* SBJsonStreamParserAdapter.m in Sources */,
+				0CABB8101C55685E00686364 /* BusRepository.m in Sources */,
+				0CABB80D1C55605D00686364 /* GenericRepository.m in Sources */,
 				0CF8BA8E1C41976A00506A91 /* MyStopsService.m in Sources */,
 				0C5C11D91C42821600FDD021 /* SBJsonStreamParser.m in Sources */,
 				0C5C11DC1C42821600FDD021 /* SBJsonStreamParserState.m in Sources */,
@@ -523,8 +561,10 @@
 				0CF8BA891C418CFF00506A91 /* BusService.m in Sources */,
 				8787CFF01A02CCC300332808 /* StopViewController.m in Sources */,
 				0C5C11E21C42821600FDD021 /* SBJsonWriter.m in Sources */,
+				0CABB8091C55601E00686364 /* StopRepository.m in Sources */,
 				0C5C11DD1C42821600FDD021 /* SBJsonStreamWriter.m in Sources */,
 				87ABF9FB1A2E6F29008A1C16 /* MyStopsViewController.m in Sources */,
+				0C8D99841C552BE300692184 /* UrlUtil.m in Sources */,
 				87588D901A07C2CA00242141 /* Bus.m in Sources */,
 				0C5C11D81C42821600FDD021 /* SBJsonParser.m in Sources */,
 				8787CFF31A02CCF300332808 /* BusViewCell.m in Sources */,
