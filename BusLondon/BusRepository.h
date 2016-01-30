@@ -13,6 +13,6 @@
 
 - (NSMutableArray*)findStopArrivals:(NSString*)stopID;
 
-- (NSMutableArray*)findLineStops:(NSString*)lineID;
-    
+- (NSMutableArray*)findVehicleArrivals:(NSString*)vehicleID;
+
 @end

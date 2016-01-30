@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C4DEC031C5CBE19007F883F /* StopServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4DEC021C5CBE19007F883F /* StopServiceTests.m */; };
 		0C5C11D71C42821600FDD021 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11BF1C42821500FDD021 /* NSObject+SBJson.m */; };
 		0C5C11D81C42821600FDD021 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11C21C42821500FDD021 /* SBJsonParser.m */; };
 		0C5C11D91C42821600FDD021 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11C41C42821500FDD021 /* SBJsonStreamParser.m */; };
@@ -40,7 +41,6 @@
 		870ABF7019BC8038001B7D2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870ABF4F19BC8037001B7D2E /* Foundation.framework */; };
 		870ABF7119BC8038001B7D2E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 870ABF5319BC8037001B7D2E /* UIKit.framework */; };
 		870ABF7919BC8038001B7D2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 870ABF7719BC8038001B7D2E /* InfoPlist.strings */; };
-		870ABF7B19BC8038001B7D2E /* BusLondonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABF7A19BC8038001B7D2E /* BusLondonTests.m */; };
 		870ABF8619BC8334001B7D2E /* NearStopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 870ABF8519BC8334001B7D2E /* NearStopsViewController.m */; };
 		8719FA5D1A29D62500BFB10A /* StopDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 8719FA5C1A29D62500BFB10A /* StopDAO.m */; };
 		8719FA601A29D65200BFB10A /* Stop.m in Sources */ = {isa = PBXBuildFile; fileRef = 8719FA5F1A29D65200BFB10A /* Stop.m */; };
@@ -73,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C4DEC021C5CBE19007F883F /* StopServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopServiceTests.m; sourceTree = "<group>"; };
 		0C5C11BE1C42821500FDD021 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		0C5C11BF1C42821500FDD021 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		0C5C11C01C42821500FDD021 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		870ABF6E19BC8038001B7D2E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		870ABF7619BC8038001B7D2E /* BusLondonTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BusLondonTests-Info.plist"; sourceTree = "<group>"; };
 		870ABF7819BC8038001B7D2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		870ABF7A19BC8038001B7D2E /* BusLondonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BusLondonTests.m; sourceTree = "<group>"; };
 		870ABF8419BC8334001B7D2E /* NearStopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearStopsViewController.h; sourceTree = "<group>"; };
 		870ABF8519BC8334001B7D2E /* NearStopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearStopsViewController.m; sourceTree = "<group>"; };
 		8719FA5B1A29D62500BFB10A /* StopDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopDAO.h; sourceTree = "<group>"; };
@@ -225,12 +225,12 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
-		0CC77C391C414D7700A1E52C /* API */ = {
+		0CC77C391C414D7700A1E52C /* Library */ = {
 			isa = PBXGroup;
 			children = (
 				0CC77C3A1C414DE800A1E52C /* SBJson */,
 			);
-			name = API;
+			name = Library;
 			sourceTree = "<group>";
 		};
 		0CC77C3A1C414DE800A1E52C /* SBJson */ = {
@@ -327,7 +327,7 @@
 			children = (
 				0C8D99811C552BAC00692184 /* Repository */,
 				0CC77C561C416F8600A1E52C /* Service */,
-				0CC77C391C414D7700A1E52C /* API */,
+				0CC77C391C414D7700A1E52C /* Library */,
 				8719FA5A1A29D60800BFB10A /* CoreData */,
 				874E8A5D1A24AF7500536052 /* Resources */,
 				870ABF8819BC85B2001B7D2E /* Model */,
@@ -356,8 +356,8 @@
 		870ABF7419BC8038001B7D2E /* BusLondonTests */ = {
 			isa = PBXGroup;
 			children = (
-				870ABF7A19BC8038001B7D2E /* BusLondonTests.m */,
 				870ABF7519BC8038001B7D2E /* Supporting Files */,
+				0C4DEC021C5CBE19007F883F /* StopServiceTests.m */,
 			);
 			path = BusLondonTests;
 			sourceTree = "<group>";
@@ -576,7 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				870ABF7B19BC8038001B7D2E /* BusLondonTests.m in Sources */,
+				0C4DEC031C5CBE19007F883F /* StopServiceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,66 +12,24 @@
 
 + (NSString*)stopsByLocation:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon radius:(int)radius{
     
-    // https://api.tfl.gov.uk/StopPoint?lat=51.509980&lon=-0.133700&stopTypes=NaptanPublicBusCoachTram&radius=300&returnLines=True&app_id=b4cfdcd0&app_key=ee2d65d36b4f1881b46dd5d0d7c33c26
-    
-    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%f%@%f%@%@%@%@%@%d%@%@%@%@%@",
-                           NEW_URL_TFL_API,
-                           TFL_STOP_POINT_PARAM,
-                           @"?",
-                           @"lat=",
-                           lat,
-                           @"&lon=",
-                           lon,
-                           @"&",
-                           TFL_STOP_TYPE_PARAM,
-                           TFL_STOP_TYPE_PUBLIC_BUS,
-                           @"&",
-                           TFL_RADIUS_PARAM,
-                           radius,
-                           @"&",
-                           TFL_RETURN_LINES_PARAM,
-                           @"True",
-                           @"&",
-                           TFL_APP_CREDENTIALS];
-    NSLog(@"%@", URLString);
-    return URLString;
+    return [NSString stringWithFormat:TFL_NEAR_STOPS,
+            lat,
+            lon,
+            radius,
+            TFL_APP_CREDENTIALS];
 }
 
 + (NSString*)arrivalsByStopID:(NSString*)stopID{
     
-    //https://api.tfl.gov.uk/StopPoint/490011516Y/Arrivals?app_id=&app_key=
+    return [NSString stringWithFormat:TFL_STOP_ARRIVALS,
+            stopID,
+            TFL_APP_CREDENTIALS];
     
-    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
-                           NEW_URL_TFL_API,
-                           TFL_STOP_POINT_PARAM,
-                           @"/",
-                           stopID,
-                           @"/",
-                           TFL_ARRAIVALS_PARAM,
-                           @"?",
-                           TFL_APP_CREDENTIALS];
-    
-    NSLog(@"%@", URLString);
-    
-    return URLString;
 }
 
-+ (NSString*)lineRoute:(NSString*)lineId{
++ (NSString*)vehicleArrivals:(NSString*)vehicleID{
     
-    //https://api.tfl.gov.uk/Line/12/stoppoints
+    return [NSString stringWithFormat:TFL_VEHICLE_ARRIVALS, vehicleID];
     
-    NSString *URLString = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",
-                           NEW_URL_TFL_API,
-                           TFL_LINE_PARAM,
-                           @"/",
-                           lineId,
-                           @"/",
-                           TFL_STOPPOINTS_PARAM,
-                           @"?",
-                           TFL_APP_CREDENTIALS];
-    
-    NSLog(@"%@", URLString);
-    
-    return URLString;
 }
 @end

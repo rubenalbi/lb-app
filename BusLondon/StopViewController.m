@@ -109,7 +109,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"lineSequence"]) {
-        [[segue destinationViewController] setLineID: [buses[[[self.tableView indexPathForSelectedRow] row]] LineName]];
+        [[segue destinationViewController] setVehicleID: [buses[[[self.tableView indexPathForSelectedRow] row]] VehicleID]];
     }
 }
 @end

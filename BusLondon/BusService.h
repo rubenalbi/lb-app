@@ -13,6 +13,6 @@
 
 - (NSMutableArray*)getStopArrivals:(NSString*)stopID unifiedList:(BOOL)unified;
 
-- (NSMutableArray*)getLineStops:(NSString*)lineID;
+- (NSMutableArray*)getVehicleStops:(NSString*)vehicleID;
 
 @end

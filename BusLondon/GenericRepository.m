@@ -18,4 +18,10 @@
     return [parser objectWithString:response error:nil];
 }
 
+- (NSArray*) parseJsonArrayFromURL:(NSString*)url{
+    
+    return [[NSString
+             stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil]componentsSeparatedByString:@"\n"];
+}
+
 @end

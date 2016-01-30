@@ -29,9 +29,9 @@
              [busRepository findStopArrivals:stopID]];
 }
 
-- (NSMutableArray*)getLineStops:(NSString*)lineID{
-
-    return [busRepository findLineStops:lineID];
+- (NSMutableArray*)getVehicleStops:(NSString*)vehicleID{
+    
+    return [super insertionStopsSort:[busRepository findVehicleArrivals:vehicleID]];
     
 }
 
@@ -61,18 +61,17 @@
     bool exist = false;
     for (int i = 0;[buses count] > i;i++){
         if([temp count] > 0){
+            exist = false;
             for (int j = 0; [temp count] > j; j++) {
                 if ([[buses[i] LineName] isEqualToString:[temp[j] LineName]]) {
                     if (![[buses[i] VehicleID] isEqualToString:[temp[j] VehicleID]]) {
                         [[temp[j] NextBuses] addObject:[[buses objectAtIndex:i] getEstimatedTimeMinutes]];
-                        NSLog(@"Break, no copying bus");
                         exist = true;
                         break;
                     }
                 }
             }
             if (!exist) {
-                NSLog(@"adding component");
                 [temp addObject:buses[i]];
                 exist = false;
             }

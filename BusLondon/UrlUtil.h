@@ -16,6 +16,6 @@
 
 + (NSString*)arrivalsByStopID:(NSString*)stopID;
 
-+ (NSString*)lineRoute:(NSString*)lineId;
++ (NSString*)vehicleArrivals:(NSString*)vehicleID;
 
 @end

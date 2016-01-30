@@ -18,4 +18,6 @@
 
 - (NSString*)getDistanceMinutesByMeters:(NSNumber*)meters;
 
+- (NSMutableArray *)insertionStopsSort:(NSMutableArray *)unsortedDataArray;
+
 @end

@@ -20,14 +20,18 @@
     return buses;
 }
 
-- (NSMutableArray*)findLineStops:(NSString*)lineID{
+- (NSMutableArray*)findVehicleArrivals:(NSString*)vehicleID{
+    
+    NSArray *stopArrays = [super parseJsonArrayFromURL:[UrlUtil vehicleArrivals:vehicleID]];
     
     NSMutableArray *stops = [[NSMutableArray alloc] init];
-    NSDictionary *sequences = [super parseJsonFromURL: [UrlUtil lineRoute:lineID]];
-    
-    if (sequences != nil && [sequences count] > 0) {
-        for (NSDictionary *sequence in sequences) {
-            [stops addObject:[[Stop alloc] initWithDictionary:sequence]];
+    NSArray *individualJSONArray;
+    for (NSString *actualString in stopArrays) {
+        individualJSONArray = [NSJSONSerialization
+                               JSONObjectWithData:[actualString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
+        
+        if (individualJSONArray.count >= 6){
+            [stops addObject:[[Stop alloc] initWithArray:individualJSONArray]];
         }
     }
     

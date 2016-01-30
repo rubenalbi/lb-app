@@ -21,7 +21,7 @@
     if (self) {
         [self setStopPointName:[busJson valueForKey:@"stationName"]];
         [self setLineName:[busJson valueForKey:@"lineName"]];
-        [self setDestinationName:[busJson valueForKey:@"towards"]];
+        [self setDestinationName:[busJson valueForKey:@"destinationName"]];
         [self setVehicleID:[busJson valueForKey:@"vehicleId"]];
         [self setEstimatedTime:[[busJson objectForKey:@"timeToStation"] doubleValue]];
         [self setNextBuses:[[NSMutableArray alloc] init]];

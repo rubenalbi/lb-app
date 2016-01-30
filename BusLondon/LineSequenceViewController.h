@@ -11,6 +11,6 @@
 
 @interface LineSequenceViewController : UITableViewController
 
-@property NSString *lineID;
+@property NSString *vehicleID;
 
 @end

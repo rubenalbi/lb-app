@@ -31,6 +31,19 @@
     return self;
 }
 
+- (id)initWithArray:(NSArray*)stopArray {
+    self = [super init];
+    if (self) {
+        [self setStopPointName:[stopArray objectAtIndex:1]];
+        [self setStopID:[stopArray objectAtIndex:2]];
+        [self setStopPointIndicator:[stopArray objectAtIndex:3]];
+        [self setLatitude:[stopArray objectAtIndex:4]];
+        [self setLongitude:[stopArray objectAtIndex:5]];
+        [self setDistance:[NSNumber numberWithLong:[[stopArray objectAtIndex:6] longValue] / 1000]];
+    }
+    return self;
+}
+
 - (NSString*) getLines:(NSDictionary*)lineGroup{
     NSMutableArray *busNumbers = [lineGroup valueForKey:@"lineIdentifier"];
     if (busNumbers != nil && [busNumbers count] > 0) {

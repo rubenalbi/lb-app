@@ -20,8 +20,8 @@
     [super viewDidLoad];
     
     BusService *busService = [[BusService alloc] init];
-    stops = [busService getLineStops:[self lineID]];
-    
+    stops = [busService getVehicleStops:[self vehicleID]];
+    NSLog(@"VEHICLE ID: %@", [self vehicleID]);
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -55,9 +55,20 @@
     if (stops != nil && stops.count > 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"SequenceCell" forIndexPath:indexPath];
         Stop *stop = stops[indexPath.row];
+        ;
         
-        cell.textLabel.text = [stop stopPointName];
-        NSLog(@"%@ - %@", stop.stopPointIndicator, stop.stopPointName);
+        [[NSDate date] timeIntervalSince1970];
+        ;
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %f",
+                               stop.stopPointIndicator,
+                               stop.stopPointName,
+                               ([stop.distance longValue] - [[NSDate date] timeIntervalSince1970])/60];
+        
+        NSLog(@"stop %@ - %.f - %f",
+              stop.stopPointIndicator,
+              ([stop.distance longValue] - [[NSDate date] timeIntervalSince1970])/60,
+              ([stop.distance longValue] - [[NSDate date] timeIntervalSince1970])/60);
     
         
         return cell;

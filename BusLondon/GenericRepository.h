@@ -17,4 +17,6 @@
 
 - (NSDictionary*) parseJsonFromURL:(NSString*)url;
 
+- (NSArray*) parseJsonArrayFromURL:(NSString*)url;
+
 @end
