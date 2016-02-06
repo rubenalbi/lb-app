@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C3535D51C663030009BA4DC /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C3535D41C663030009BA4DC /* Ubuntu-R.ttf */; };
+		0C3535D81C66306B009BA4DC /* Ubuntu-L.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C3535D61C66306B009BA4DC /* Ubuntu-L.ttf */; };
+		0C3535D91C66306B009BA4DC /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C3535D71C66306B009BA4DC /* Ubuntu-M.ttf */; };
 		0C4DEC031C5CBE19007F883F /* StopServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4DEC021C5CBE19007F883F /* StopServiceTests.m */; };
 		0C5C11D71C42821600FDD021 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11BF1C42821500FDD021 /* NSObject+SBJson.m */; };
 		0C5C11D81C42821600FDD021 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11C21C42821500FDD021 /* SBJsonParser.m */; };
@@ -73,6 +76,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C3535D41C663030009BA4DC /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
+		0C3535D61C66306B009BA4DC /* Ubuntu-L.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-L.ttf"; sourceTree = "<group>"; };
+		0C3535D71C66306B009BA4DC /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-M.ttf"; sourceTree = "<group>"; };
 		0C4DEC021C5CBE19007F883F /* StopServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopServiceTests.m; sourceTree = "<group>"; };
 		0C5C11BE1C42821500FDD021 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		0C5C11BF1C42821500FDD021 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
@@ -191,6 +197,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C3535D31C662FFF009BA4DC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0C3535D61C66306B009BA4DC /* Ubuntu-L.ttf */,
+				0C3535D71C66306B009BA4DC /* Ubuntu-M.ttf */,
+				0C3535D41C663030009BA4DC /* Ubuntu-R.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		0C8D99811C552BAC00692184 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,6 +427,7 @@
 		874E8A5D1A24AF7500536052 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C3535D31C662FFF009BA4DC /* Fonts */,
 				8790B26719C1C4BD00BC1D63 /* Images */,
 				874E8A5E1A24AFAD00536052 /* BusLondon.xcdatamodeld */,
 			);
@@ -513,9 +530,12 @@
 				87CB0B801A162E9100A09427 /* pinStopMap@2x.png in Resources */,
 				870ABF6819BC8038001B7D2E /* Images.xcassets in Resources */,
 				8790B26919C1C68B00BC1D63 /* redStopPointIndicator@2x.png in Resources */,
+				0C3535D81C66306B009BA4DC /* Ubuntu-L.ttf in Resources */,
 				87CB0B821A16399D00A09427 /* arrowRed@2x.png in Resources */,
 				870ABF5A19BC8037001B7D2E /* InfoPlist.strings in Resources */,
+				0C3535D51C663030009BA4DC /* Ubuntu-R.ttf in Resources */,
 				87D93A4E1A2F9258009BF680 /* favourites@3.png in Resources */,
+				0C3535D91C66306B009BA4DC /* Ubuntu-M.ttf in Resources */,
 				87CF03FD1A1CD4FD00F5F883 /* locationArrow@3x.png in Resources */,
 				870ABF6319BC8037001B7D2E /* Main.storyboard in Resources */,
 			);
