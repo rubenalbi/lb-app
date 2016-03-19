@@ -19,6 +19,8 @@
 
 - (id)initWithDictionary:(NSDictionary*)busJson;
 
-- (NSString*)getEstimatedTimeMinutes;
+- (NSString*) getEstimatedTimeString;
+
+- (double) getEstimatedTimeMinutes;
 
 @end

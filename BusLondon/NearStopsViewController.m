@@ -157,8 +157,8 @@
 - (void)loadBusStops{
     
     stops = [stopService getNearStops:mapLocation.coordinate.latitude
-                                  longitude:mapLocation.coordinate.longitude
-                                     radius:RATIO_DISTANCE];
+                            longitude:mapLocation.coordinate.longitude
+                               radius:RATIO_DISTANCE];
     [self.tableView reloadData];
     
     for (Stop *stop in stops) {
@@ -311,17 +311,17 @@
     [self.mapView addSubview:myLocationButton];
 }
 //  Se pasa el objeto Centro que se ha seleccionado de la tabla para mostrar sus detalles
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([[segue identifier] isEqualToString:@"showStop"]) {
+        
+        StopViewController *destinationController = segue.destinationViewController;
+        
         if ([sender class] == [Pin class]) {
-            [[segue destinationViewController] setStopID:[selectedPin stopID]];
-            [[segue destinationViewController] setTitle:[selectedPin title]];
+//            [destinationController setStopID:[selectedPin stopID]];
+            [destinationController setTitle:[selectedPin title]];
         } else {
-            [[segue destinationViewController]
-             setStopID:[stops[[[self.tableView indexPathForSelectedRow] row]] stopID]];
-            [[segue destinationViewController]
-             setTitle:[stops[[[self.tableView indexPathForSelectedRow] row]] stopPointName]];
+            destinationController.stop = stops[self.tableView.indexPathForSelectedRow.row];
         }
     }
 }

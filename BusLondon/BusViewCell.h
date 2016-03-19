@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *busNumber;
 @property (weak, nonatomic) IBOutlet UILabel *towards;
 @property (weak, nonatomic) IBOutlet UILabel *estimatedTime;
+@property (weak, nonatomic) IBOutlet UILabel *nextBuses;
 
 @end

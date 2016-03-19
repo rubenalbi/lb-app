@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BusService.h"
 
-@interface LineSequenceViewController : UITableViewController
+@interface LineSequenceViewController : UITableViewController 
 
 @property NSString *vehicleID;
 

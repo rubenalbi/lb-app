@@ -65,7 +65,7 @@
             for (int j = 0; [temp count] > j; j++) {
                 if ([[buses[i] LineName] isEqualToString:[temp[j] LineName]]) {
                     if (![[buses[i] VehicleID] isEqualToString:[temp[j] VehicleID]]) {
-                        [[temp[j] NextBuses] addObject:[[buses objectAtIndex:i] getEstimatedTimeMinutes]];
+                        [[temp[j] NextBuses] addObject:[[buses objectAtIndex:i] getEstimatedTimeString]];
                         exist = true;
                         break;
                     }

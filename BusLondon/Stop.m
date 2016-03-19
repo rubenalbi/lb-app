@@ -60,4 +60,8 @@
     return nil;
 }
 
+- (NSString*) getDistanceString{
+    return [NSString stringWithFormat:@"%.0f", self.distance.doubleValue];
+}
+
 @end

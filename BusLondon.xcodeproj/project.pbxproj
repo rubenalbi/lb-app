@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C15871E1C70C13700FD5F99 /* iPhone 6 Bus journey.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C15871A1C70C13700FD5F99 /* iPhone 6 Bus journey.png */; };
+		0C15871F1C70C13700FD5F99 /* iPhone 6 Favorite stops.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C15871B1C70C13700FD5F99 /* iPhone 6 Favorite stops.png */; };
+		0C1587201C70C13700FD5F99 /* iPhone 6 Near Stops.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C15871C1C70C13700FD5F99 /* iPhone 6 Near Stops.png */; };
+		0C1587211C70C13700FD5F99 /* iPhone 6 Stop arrivals.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C15871D1C70C13700FD5F99 /* iPhone 6 Stop arrivals.png */; };
+		0C1587261C70C32C00FD5F99 /* identifierOval.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1587231C70C32C00FD5F99 /* identifierOval.png */; };
+		0C1587271C70C32C00FD5F99 /* identifierOval@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1587241C70C32C00FD5F99 /* identifierOval@2x.png */; };
+		0C1587281C70C32C00FD5F99 /* identifierOval@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1587251C70C32C00FD5F99 /* identifierOval@3x.png */; };
+		0C15872C1C70C35600FD5F99 /* pinStop.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C1587291C70C35600FD5F99 /* pinStop.png */; };
+		0C15872D1C70C35600FD5F99 /* pinStop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C15872A1C70C35600FD5F99 /* pinStop@2x.png */; };
+		0C15872E1C70C35600FD5F99 /* pinStop@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C15872B1C70C35600FD5F99 /* pinStop@3x.png */; };
+		0C2FB0BE1C6E9FCC0075A174 /* BusLondon.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 0C2FB0BD1C6E9FCC0075A174 /* BusLondon.podspec */; };
 		0C3535D51C663030009BA4DC /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C3535D41C663030009BA4DC /* Ubuntu-R.ttf */; };
 		0C3535D81C66306B009BA4DC /* Ubuntu-L.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C3535D61C66306B009BA4DC /* Ubuntu-L.ttf */; };
 		0C3535D91C66306B009BA4DC /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C3535D71C66306B009BA4DC /* Ubuntu-M.ttf */; };
@@ -24,6 +35,7 @@
 		0C5C11E11C42821600FDD021 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D41C42821500FDD021 /* SBJsonUTF8Stream.m */; };
 		0C5C11E21C42821600FDD021 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5C11D61C42821500FDD021 /* SBJsonWriter.m */; };
 		0C8D99841C552BE300692184 /* UrlUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D99831C552BE300692184 /* UrlUtil.m */; };
+		0CA0747E1C9DB0D800DCEB5F /* BusJourneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA0747D1C9DB0D800DCEB5F /* BusJourneyViewController.m */; };
 		0CABB8091C55601E00686364 /* StopRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB8081C55601E00686364 /* StopRepository.m */; };
 		0CABB80D1C55605D00686364 /* GenericRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB80C1C55605D00686364 /* GenericRepository.m */; };
 		0CABB8101C55685E00686364 /* BusRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB80F1C55685E00686364 /* BusRepository.m */; };
@@ -76,6 +88,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C15871A1C70C13700FD5F99 /* iPhone 6 Bus journey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6 Bus journey.png"; sourceTree = "<group>"; };
+		0C15871B1C70C13700FD5F99 /* iPhone 6 Favorite stops.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6 Favorite stops.png"; sourceTree = "<group>"; };
+		0C15871C1C70C13700FD5F99 /* iPhone 6 Near Stops.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6 Near Stops.png"; sourceTree = "<group>"; };
+		0C15871D1C70C13700FD5F99 /* iPhone 6 Stop arrivals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6 Stop arrivals.png"; sourceTree = "<group>"; };
+		0C1587231C70C32C00FD5F99 /* identifierOval.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = identifierOval.png; sourceTree = "<group>"; };
+		0C1587241C70C32C00FD5F99 /* identifierOval@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "identifierOval@2x.png"; sourceTree = "<group>"; };
+		0C1587251C70C32C00FD5F99 /* identifierOval@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "identifierOval@3x.png"; sourceTree = "<group>"; };
+		0C1587291C70C35600FD5F99 /* pinStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinStop.png; sourceTree = "<group>"; };
+		0C15872A1C70C35600FD5F99 /* pinStop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinStop@2x.png"; sourceTree = "<group>"; };
+		0C15872B1C70C35600FD5F99 /* pinStop@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinStop@3x.png"; sourceTree = "<group>"; };
+		0C2FB0BD1C6E9FCC0075A174 /* BusLondon.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BusLondon.podspec; sourceTree = "<group>"; };
 		0C3535D41C663030009BA4DC /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
 		0C3535D61C66306B009BA4DC /* Ubuntu-L.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-L.ttf"; sourceTree = "<group>"; };
 		0C3535D71C66306B009BA4DC /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-M.ttf"; sourceTree = "<group>"; };
@@ -107,6 +130,8 @@
 		0C5C11D61C42821500FDD021 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		0C8D99821C552BE300692184 /* UrlUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlUtil.h; sourceTree = "<group>"; };
 		0C8D99831C552BE300692184 /* UrlUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlUtil.m; sourceTree = "<group>"; };
+		0CA0747C1C9DB0D800DCEB5F /* BusJourneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusJourneyViewController.h; sourceTree = "<group>"; };
+		0CA0747D1C9DB0D800DCEB5F /* BusJourneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusJourneyViewController.m; sourceTree = "<group>"; };
 		0CABB8071C55601E00686364 /* StopRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopRepository.h; sourceTree = "<group>"; };
 		0CABB8081C55601E00686364 /* StopRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopRepository.m; sourceTree = "<group>"; };
 		0CABB80B1C55605D00686364 /* GenericRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericRepository.h; sourceTree = "<group>"; };
@@ -197,6 +222,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C1587191C70C11200FD5F99 /* Designs */ = {
+			isa = PBXGroup;
+			children = (
+				0C15871A1C70C13700FD5F99 /* iPhone 6 Bus journey.png */,
+				0C15871B1C70C13700FD5F99 /* iPhone 6 Favorite stops.png */,
+				0C15871C1C70C13700FD5F99 /* iPhone 6 Near Stops.png */,
+				0C15871D1C70C13700FD5F99 /* iPhone 6 Stop arrivals.png */,
+			);
+			name = Designs;
+			sourceTree = "<group>";
+		};
+		0C1587221C70C2EB00FD5F99 /* NearCell */ = {
+			isa = PBXGroup;
+			children = (
+				0C1587291C70C35600FD5F99 /* pinStop.png */,
+				0C15872A1C70C35600FD5F99 /* pinStop@2x.png */,
+				0C15872B1C70C35600FD5F99 /* pinStop@3x.png */,
+				0C1587231C70C32C00FD5F99 /* identifierOval.png */,
+				0C1587241C70C32C00FD5F99 /* identifierOval@2x.png */,
+				0C1587251C70C32C00FD5F99 /* identifierOval@3x.png */,
+			);
+			name = NearCell;
+			sourceTree = "<group>";
+		};
 		0C3535D31C662FFF009BA4DC /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +447,8 @@
 				87ABF9FA1A2E6F29008A1C16 /* MyStopsViewController.m */,
 				0CDCACBF1C46F35C003B421C /* LineSequenceViewController.h */,
 				0CDCACC01C46F35C003B421C /* LineSequenceViewController.m */,
+				0CA0747C1C9DB0D800DCEB5F /* BusJourneyViewController.h */,
+				0CA0747D1C9DB0D800DCEB5F /* BusJourneyViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -427,6 +478,7 @@
 		874E8A5D1A24AF7500536052 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C2FB0BD1C6E9FCC0075A174 /* BusLondon.podspec */,
 				0C3535D31C662FFF009BA4DC /* Fonts */,
 				8790B26719C1C4BD00BC1D63 /* Images */,
 				874E8A5E1A24AFAD00536052 /* BusLondon.xcdatamodeld */,
@@ -437,6 +489,8 @@
 		8790B26719C1C4BD00BC1D63 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				0C1587221C70C2EB00FD5F99 /* NearCell */,
+				0C1587191C70C11200FD5F99 /* Designs */,
 				87CF03FC1A1CD4FD00F5F883 /* locationArrow@3x.png */,
 				87D93A4C1A2F9257009BF680 /* favourites@3.png */,
 				87D93A4D1A2F9258009BF680 /* favouritesSelected@3.png */,
@@ -526,17 +580,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C1587211C70C13700FD5F99 /* iPhone 6 Stop arrivals.png in Resources */,
 				87D93A4F1A2F9258009BF680 /* favouritesSelected@3.png in Resources */,
 				87CB0B801A162E9100A09427 /* pinStopMap@2x.png in Resources */,
+				0C1587201C70C13700FD5F99 /* iPhone 6 Near Stops.png in Resources */,
+				0C1587281C70C32C00FD5F99 /* identifierOval@3x.png in Resources */,
 				870ABF6819BC8038001B7D2E /* Images.xcassets in Resources */,
 				8790B26919C1C68B00BC1D63 /* redStopPointIndicator@2x.png in Resources */,
 				0C3535D81C66306B009BA4DC /* Ubuntu-L.ttf in Resources */,
 				87CB0B821A16399D00A09427 /* arrowRed@2x.png in Resources */,
+				0C15871F1C70C13700FD5F99 /* iPhone 6 Favorite stops.png in Resources */,
+				0C15872E1C70C35600FD5F99 /* pinStop@3x.png in Resources */,
+				0C15871E1C70C13700FD5F99 /* iPhone 6 Bus journey.png in Resources */,
+				0C2FB0BE1C6E9FCC0075A174 /* BusLondon.podspec in Resources */,
+				0C1587271C70C32C00FD5F99 /* identifierOval@2x.png in Resources */,
 				870ABF5A19BC8037001B7D2E /* InfoPlist.strings in Resources */,
+				0C15872D1C70C35600FD5F99 /* pinStop@2x.png in Resources */,
+				0C1587261C70C32C00FD5F99 /* identifierOval.png in Resources */,
 				0C3535D51C663030009BA4DC /* Ubuntu-R.ttf in Resources */,
 				87D93A4E1A2F9258009BF680 /* favourites@3.png in Resources */,
 				0C3535D91C66306B009BA4DC /* Ubuntu-M.ttf in Resources */,
 				87CF03FD1A1CD4FD00F5F883 /* locationArrow@3x.png in Resources */,
+				0C15872C1C70C35600FD5F99 /* pinStop.png in Resources */,
 				870ABF6319BC8037001B7D2E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -570,6 +635,7 @@
 				0CABB8101C55685E00686364 /* BusRepository.m in Sources */,
 				0CABB80D1C55605D00686364 /* GenericRepository.m in Sources */,
 				0CF8BA8E1C41976A00506A91 /* MyStopsService.m in Sources */,
+				0CA0747E1C9DB0D800DCEB5F /* BusJourneyViewController.m in Sources */,
 				0C5C11D91C42821600FDD021 /* SBJsonStreamParser.m in Sources */,
 				0C5C11DC1C42821600FDD021 /* SBJsonStreamParserState.m in Sources */,
 				0C5C11DA1C42821600FDD021 /* SBJsonStreamParserAccumulator.m in Sources */,

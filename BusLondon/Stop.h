@@ -24,4 +24,6 @@
 
 - (id)initWithArray:(NSArray*)stopArray;
 
+- (NSString*) getDistanceString;
+
 @end

@@ -33,7 +33,14 @@
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to update"];
     [refresh addTarget:self action:@selector(updateTable:) forControlEvents:UIControlEventValueChanged];
+    
     self.refreshControl = refresh;
+    
+    self.stopIndicatorLabel.text = self.stop.stopPointIndicator;
+    self.stopNameLabel.text = self.stop.stopPointName;
+    self.towardsLabel.text = self.stop.towards;
+    self.timeToStopLabel.text = [NSString stringWithFormat:@"%@ meters", self.stop.getDistanceString];
+    self.tflInformationLabel.text = @"TFL real time information.";
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -58,21 +65,19 @@
     UITableViewCell *cell;
     BusViewCell *busCell;
     
-//    Si no hay centros cargados se crea una fila mientras se cargan los datos.
+    // Default cell when no stops are loaded
     if (buses.count > 0) {
         busCell = [tableView dequeueReusableCellWithIdentifier:@"BusCell" forIndexPath:indexPath];
         Bus *bus = buses[indexPath.row];
         
-        NSLog(@"estimated minutes %@", [bus getEstimatedTimeMinutes]);
-        
         busCell.busNumber.text = [bus LineName];
         busCell.towards.text = [bus DestinationName];
-        if ([bus EstimatedTime] < 1) {
-            busCell.estimatedTime.text = @"due" ;
+        if (bus.getEstimatedTimeMinutes < 1) {
+            busCell.estimatedTime.text = @"due";
         } else {
-            busCell.estimatedTime.text = [bus getEstimatedTimeMinutes];
+            busCell.estimatedTime.text = [NSString stringWithFormat:@"%@ min", bus.getEstimatedTimeString];
+            busCell.nextBuses.text = [NSString stringWithFormat:@"and in %@ min", [bus.NextBuses componentsJoinedByString:@", "]];
         }
-        NSLog(@"%@ - %@",[bus LineName], [[bus NextBuses] componentsJoinedByString:@", "]);
         return busCell;
     }
     
@@ -83,7 +88,7 @@
 }
 
 - (void)loadBuses{
-    buses = [busService getStopArrivals:[self stopID] unifiedList:true];
+    buses = [busService getStopArrivals:self.stop.stopID unifiedList:true];
     [self.tableView reloadData];
     
 }
@@ -109,7 +114,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"lineSequence"]) {
-        [[segue destinationViewController] setVehicleID: [buses[[[self.tableView indexPathForSelectedRow] row]] VehicleID]];
+//        [[segue destinationViewController] setVehicleID: [buses[[[self.tableView indexPathForSelectedRow] row]] VehicleID]];
     }
 }
 @end

@@ -14,6 +14,7 @@
 #import "StopService.h"
 #import "BusService.h"
 #import "MyStopsService.h"
+#import "StopViewController.h"
 
 @interface NearStopsViewController : UITableViewController <CLLocationManagerDelegate, MKMapViewDelegate, UIAlertViewDelegate>{
     CLLocationManager * locationManager;

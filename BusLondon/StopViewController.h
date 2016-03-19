@@ -13,8 +13,13 @@
 #import "LineSequenceViewController.h"
 @interface StopViewController : UITableViewController
 
-@property NSString *stopID;
+@property Stop *stop;
 
 - (IBAction)refreshEstimatedTime:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *stopIndicatorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stopNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *towardsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeToStopLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tflInformationLabel;
 
 @end
